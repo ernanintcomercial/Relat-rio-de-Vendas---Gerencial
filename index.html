@@ -23,6 +23,7 @@
             align-items: baseline;
             gap: 12px;
             margin-bottom: 24px;
+            flex-wrap: wrap;
         }
         header h1 {
             font-size: 1.5rem;
@@ -40,10 +41,14 @@
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 1px 4px rgba(0,0,0,.08);
-            overflow: hidden;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        table { width: 100%; border-collapse: collapse; }
+        /* Garante que as colunas nunca fiquem "espremidas" a ponto de
+           virar ilegível; abaixo de min-width o card rola na horizontal
+           em vez de quebrar os números de forma estranha. */
+        table { width: 100%; min-width: 520px; border-collapse: collapse; }
 
         /* HEADER */
         thead tr {
@@ -57,8 +62,14 @@
             letter-spacing: .06em;
             text-transform: uppercase;
             white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 2;
         }
         thead th:not(:first-child) { text-align: right; }
+
+        /* Valores numéricos nunca quebram linha, mesmo em telas estreitas */
+        td:not(:first-child) { white-space: nowrap; }
 
         /* BRASIL row */
         .row-brasil td {
@@ -142,8 +153,22 @@
         .error { color: #dc2626; }
 
         @media (max-width: 600px) {
+            body { padding: 16px 8px; }
+            header { gap: 8px; margin-bottom: 16px; }
+            header h1 { font-size: 1.25rem; }
+            .card { border-radius: 10px; }
             .row-estado td { padding-left: 32px; }
-            thead th, .row-brasil td, .row-regiao td, .row-estado td { padding: 10px 10px; }
+            thead th, .row-brasil td, .row-regiao td, .row-estado td { padding: 11px 10px; }
+            .arrow { width: 22px; height: 22px; }
+        }
+
+        @media (max-width: 400px) {
+            thead th, .row-brasil td, .row-regiao td, .row-estado td { padding: 9px 8px; font-size: 0.72rem; }
+            .row-brasil td { font-size: 0.8rem; }
+            .row-regiao td { font-size: 0.76rem; }
+            .row-estado td { font-size: 0.72rem; padding-left: 26px; }
+            .badge { padding: 2px 6px; min-width: 40px; font-size: 0.68rem; }
+            table { min-width: 460px; }
         }
     </style>
 </head>
