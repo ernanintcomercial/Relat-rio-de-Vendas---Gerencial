@@ -3,167 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consolidado de Vendas Interativo</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Acompanhamento de Vendas</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        .hidden-row { display: none; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            padding: 24px 16px;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 960px; margin: 0 auto; }
+
+        header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            letter-spacing: -0.5px;
+        }
+        header span {
+            font-size: 0.8rem;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,.08);
+            overflow: hidden;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        /* HEADER */
+        thead tr {
+            background: #1a1a2e;
+            color: #fff;
+        }
+        thead th {
+            padding: 13px 16px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        thead th:not(:first-child) { text-align: right; }
+
+        /* BRASIL row */
+        .row-brasil td {
+            padding: 14px 16px;
+            background: #1a1a2e;
+            color: #f9fafb;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #374151;
+        }
+        .row-brasil td:not(:first-child) { text-align: right; }
+
+        /* REGIÃO row */
+        .row-regiao td {
+            padding: 13px 16px;
+            background: #f8fafc;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background .15s;
+            user-select: none;
+        }
+        .row-regiao:hover td { background: #eff6ff; }
+        .row-regiao td:not(:first-child) { text-align: right; }
+        .row-regiao .label-cell { display: flex; align-items: center; gap: 8px; }
+        .arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px; height: 20px;
+            border-radius: 4px;
+            background: #e2e8f0;
+            font-size: 0.6rem;
+            color: #475569;
+            transition: transform .2s, background .15s;
+            flex-shrink: 0;
+        }
+        .row-regiao.open .arrow {
+            transform: rotate(90deg);
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        /* ESTADO row */
+        .row-estado td {
+            padding: 10px 16px 10px 48px;
+            background: #fff;
+            font-size: 0.8rem;
+            color: #374151;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background .1s;
+        }
+        .row-estado:hover td { background: #f9fafb; }
+        .row-estado td:not(:first-child) { text-align: right; }
+        .row-estado { display: none; }
+        .row-estado.visible { display: table-row; }
+
+        /* BADGE % */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            min-width: 48px;
+            text-align: center;
+        }
+        .badge-brasil  { background: #d1fae5; color: #065f46; }
+        .badge-regiao  { background: #dbeafe; color: #1e40af; }
+        .badge-estado  { background: #f3f4f6; color: #374151; }
+        .badge-low     { background: #fee2e2; color: #991b1b; }
+        .badge-mid     { background: #fef3c7; color: #92400e; }
+
+        .loading {
+            text-align: center;
+            padding: 48px;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        .error { color: #dc2626; }
+
+        @media (max-width: 600px) {
+            .row-estado td { padding-left: 32px; }
+            thead th, .row-brasil td, .row-regiao td, .row-estado td { padding: 10px 10px; }
+        }
     </style>
 </head>
-<body class="bg-gray-100 font-sans p-4 md:p-8">
-
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-md">
-        <h1 class="text-2xl font-bold text-gray-800 mb-2">Acompanhamento Diário de Vendas</h1>
-        <p class="text-sm text-gray-500 mb-6">Clique nas regiões para expandir e ver os detalhes por estado.</p>
-
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-                <thead>
-                    <tr class="bg-gray-800 text-white text-left text-sm uppercase font-semibold">
-                        <th class="py-3 px-4">Consolidado / Estado</th>
-                        <th class="py-3 px-4 text-right">Meta</th>
-                        <th class="py-3 px-4 text-right">Realizado</th>
-                        <th class="py-3 px-4 text-center">Atingimento</th>
-                    </tr>
-                </thead>
-                <tbody id="tabela-dados" class="text-gray-700 text-sm">
-                    <tr>
-                        <td colspan="4" class="text-center py-8 text-gray-400">Processando planilha de dados...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<body>
+<div class="container">
+    <header>
+        <h1>📊 Acompanhamento de Vendas</h1>
+        <span>clique nas regiões para expandir</span>
+    </header>
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:45%">Região / Estado</th>
+                    <th>Meta</th>
+                    <th>Realizado</th>
+                    <th>Atingimento</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr><td colspan="4" class="loading">Carregando dados...</td></tr>
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <script>
-        // Mapeamento das regiões com base nos estados da sua planilha
-        const mapeamentoRegioes = {
-            "SUL E CENTRO OESTE": ["PARANA", "SANTA CATARINA", "RIO GRANDE DO SUL", "MATO GROSSO", "MATO GROSSO DO SUL", "GOIAS", "DISTRITO FEDERAL", "TOCANTINS"],
-            "SUDESTE": ["SAO PAULO", "RIO DE JANEIRO", "MINAS GERAIS", "ESPIRITO SANTO"]
-        };
+<script>
+    const FILE = 'Dados.xlsx';
 
-        function obterRegiao(estado) {
-            if (!estado) return "NORTE E NORDESTE";
-            const estadoNormalizado = estado.trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            if (mapeamentoRegioes["SUL E CENTRO OESTE"].includes(estadoNormalizado)) return "SUL E CENTRO OESTE";
-            if (mapeamentoRegioes["SUDESTE"].includes(estadoNormalizado)) return "SUDESTE";
-            return "NORTE E NORDESTE";
+    // Exibição de nomes legíveis para cada região (chave = valor exato da coluna Região)
+    const NOMES_REGIAO = {
+        'SUL   CENTRO OESTE': '🗺️ Sul e Centro Oeste',
+        'SUDESTE':            '🗺️ Sudeste',
+        'NORTE   NORDESTE':   '🗺️ Norte e Nordeste',
+    };
+
+    function fmt(v) {
+        return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+    }
+
+    function pct(realizado, meta) {
+        if (!meta || meta === 0) return 0;
+        return Math.round((realizado / meta) * 100);
+    }
+
+    function badgeClass(p, tipo) {
+        if (tipo === 'brasil') return 'badge badge-brasil';
+        if (tipo === 'regiao') {
+            if (p < 10) return 'badge badge-low';
+            if (p < 30) return 'badge badge-mid';
+            return 'badge badge-regiao';
         }
+        if (p < 10) return 'badge badge-low';
+        if (p < 30) return 'badge badge-mid';
+        return 'badge badge-estado';
+    }
 
-        function formatarMoeda(valor) {
-            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        }
+    function toggleRegiao(regiaoId) {
+        const headerRow = document.getElementById('reg-' + regiaoId);
+        const estadoRows = document.querySelectorAll('.estado-' + regiaoId);
+        const isOpen = headerRow.classList.contains('open');
 
-        async function processarExcel() {
-            try {
-                const resposta = await fetch('Dados.xlsx');
-                const arrayBuffer = await resposta.arrayBuffer();
-                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-                const dados = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames0]);
+        headerRow.classList.toggle('open', !isOpen);
+        estadoRows.forEach(r => r.classList.toggle('visible', !isOpen));
+    }
 
-                // Estrutura para consolidar os dados de forma dinâmica
-                let totalBrasil = { meta: 0, realizado: 0 };
-                let regioes = {
-                    "SUL E CENTRO OESTE": { meta: 0, realizado: 0, estados: {} },
-                    "SUDESTE": { meta: 0, realizado: 0, estados: {} },
-                    "NORTE E NORDESTE": { meta: 0, realizado: 0, estados: {} }
-                };
+    async function carregar() {
+        try {
+            const resp = await fetch(FILE);
+            if (!resp.ok) throw new Error(`Arquivo não encontrado: ${FILE}`);
+            const buf = await resp.arrayBuffer();
+            const wb = XLSX.read(buf, { type: 'array' });
 
-                // Agrupando e somando os dados brutos do Excel
-                dados.forEach(linha => {
-                    const estado = linha["Unidade Federativa"] ? linha["Unidade Federativa"].trim().toUpperCase() : "NÃO INFORMADO";
-                    const meta = parseFloat(linha["Meta Vendas"] || 0);
-                    const realizado = parseFloat(linha["Total Geral"] || 0);
-                    const regiaoNome = obterRegiao(estado);
+            // Usar a primeira aba (Export)
+            const ws = wb.Sheets[wb.SheetNames[0]];
+            const rows = XLSX.utils.sheet_to_json(ws, { defval: null });
 
-                    // Soma Brasil
-                    totalBrasil.meta += meta;
-                    totalBrasil.realizado += realizado;
+            // Acumular totais
+            let brasil = { meta: 0, real: 0 };
+            const regioes = {};   // chave = valor exato da coluna Região
+            const estados = {};   // chave = "Região||UF"
 
-                    // Soma Região
-                    regioes[regiaoNome].meta += meta;
-                    regioes[regiaoNome].realizado += realizado;
+            rows.forEach(r => {
+                const meta  = parseFloat(r['Meta Vendas']  || 0) || 0;
+                const real  = parseFloat(r['Total Geral']  || 0) || 0;
+                const reg   = (r['Região'] || 'SEM REGIÃO').trim();
+                const uf    = (r['Unidade Federativa'] || 'NÃO INFORMADO').trim().toUpperCase();
 
-                    // Soma Estado dentro da Região
-                    if (!regioes[regiaoNome].estados[estado]) {
-                        regioes[regiaoNome].estados[estado] = { meta: 0, realizado: 0 };
-                    }
-                    regioes[regiaoNome].estados[estado].meta += meta;
-                    regioes[regiaoNome].estados[estado].realizado += realizado;
-                });
+                brasil.meta += meta;
+                brasil.real += real;
 
-                const tbody = document.getElementById('tabela-dados');
-                tbody.innerHTML = '';
+                if (!regioes[reg]) regioes[reg] = { meta: 0, real: 0 };
+                regioes[reg].meta += meta;
+                regioes[reg].real += real;
 
-                // 1. Injetar Linha BRASIL
-                const pctBrasil = totalBrasil.meta > 0 ? Math.round((totalBrasil.realizado / totalBrasil.meta) * 100) : 0;
-                tbody.innerHTML += `
-                    <tr class="bg-gray-200 font-bold border-b-2 border-gray-300 text-gray-900">
-                        <td class="py-3 px-4">🇧🇷 BRASIL</td>
-                        <td class="py-3 px-4 text-right">${formatarMoeda(totalBrasil.meta)}</td>
-                        <td class="py-3 px-4 text-right">${formatarMoeda(totalBrasil.realizado)}</td>
-                        <td class="py-3 px-4 text-center"><span class="bg-green-200 text-green-900 px-2 py-0.5 rounded text-xs">${pctBrasil}%</span></td>
+                const key = reg + '||' + uf;
+                if (!estados[key]) estados[key] = { reg, uf, meta: 0, real: 0 };
+                estados[key].meta += meta;
+                estados[key].real += real;
+            });
+
+            // Ordenar regiões pela ordem preferida
+            const ordemRegioes = ['SUL   CENTRO OESTE', 'SUDESTE', 'NORTE   NORDESTE'];
+            const regSorted = [
+                ...ordemRegioes.filter(k => regioes[k]),
+                ...Object.keys(regioes).filter(k => !ordemRegioes.includes(k))
+            ];
+
+            const tbody = document.getElementById('tbody');
+            tbody.innerHTML = '';
+
+            // ---- BRASIL ----
+            const pBr = pct(brasil.real, brasil.meta);
+            tbody.insertAdjacentHTML('beforeend', `
+                <tr class="row-brasil">
+                    <td>🇧🇷 BRASIL</td>
+                    <td>${fmt(brasil.meta)}</td>
+                    <td>${fmt(brasil.real)}</td>
+                    <td><span class="${badgeClass(pBr,'brasil')}">${pBr}%</span></td>
+                </tr>
+            `);
+
+            // ---- REGIÕES + ESTADOS ----
+            regSorted.forEach((reg, idx) => {
+                const rd = regioes[reg];
+                const pR = pct(rd.real, rd.meta);
+                const label = NOMES_REGIAO[reg] || ('🗺️ ' + reg);
+
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr class="row-regiao" id="reg-${idx}" onclick="toggleRegiao(${idx})">
+                        <td>
+                            <div class="label-cell">
+                                <span class="arrow">▶</span>
+                                ${label}
+                            </div>
+                        </td>
+                        <td>${fmt(rd.meta)}</td>
+                        <td>${fmt(rd.real)}</td>
+                        <td><span class="${badgeClass(pR,'regiao')}">${pR}%</span></td>
                     </tr>
-                `;
+                `);
 
-                // 2. Injetar Regiões e Estados
-                let idRegiao = 0;
-                for (const regiao in regioes) {
-                    idRegiao++;
-                    const rDados = regioes[regiao];
-                    const pctRegiao = rDados.meta > 0 ? Math.round((rDados.realizado / rDados.meta) * 100) : 0;
+                // Estados desta região, ordenados por Meta desc
+                const ufsRegiao = Object.values(estados)
+                    .filter(e => e.reg === reg)
+                    .sort((a, b) => b.meta - a.meta);
 
-                    // Linha da Região (Clicável)
-                    tbody.innerHTML += `
-                        <tr class="bg-gray-50 font-semibold border-b border-gray-200 cursor-pointer hover:bg-gray-100 text-gray-800" onclick="toggleRegiao('reg-${idRegiao}')">
-                            <td class="py-3 px-4 flex items-center gap-2">
-                                <span id="seta-reg-${idRegiao}">▶</span> 🗺️ ${regiao}
-                            </td>
-                            <td class="py-3 px-4 text-right">${formatarMoeda(rDados.meta)}</td>
-                            <td class="py-3 px-4 text-right">${formatarMoeda(rDados.realizado)}</td>
-                            <td class="py-3 px-4 text-center"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs">${pctRegiao}%</span></td>
+                ufsRegiao.forEach(e => {
+                    const pE = pct(e.real, e.meta);
+                    tbody.insertAdjacentHTML('beforeend', `
+                        <tr class="row-estado estado-${idx}">
+                            <td>${e.uf}</td>
+                            <td>${fmt(e.meta)}</td>
+                            <td>${fmt(e.real)}</td>
+                            <td><span class="${badgeClass(pE,'estado')}">${pE}%</span></td>
                         </tr>
-                    `;
+                    `);
+                });
+            });
 
-                    // Linhas dos Estados desta Região (Escondidas inicialmente)
-                    for (const estado in rDados.estados) {
-                        const eDados = rDados.estados[estado];
-                        const pctEstado = eDados.meta > 0 ? Math.round((eDados.realizado / eDados.meta) * 100) : 0;
-
-                        tbody.innerHTML += `
-                            <tr class="reg-${idRegiao} hidden-row bg-white border-b border-gray-100 text-gray-600 italic">
-                                <td class="py-2 pl-12 text-xs">${estado}</td>
-                                <td class="py-2 px-4 text-right text-xs">${formatarMoeda(eDados.meta)}</td>
-                                <td class="py-2 px-4 text-right text-xs">${formatarMoeda(eDados.realizado)}</td>
-                                <td class="py-2 px-4 text-center text-xs"><span>${pctEstado}%</span></td>
-                            </tr>
-                        `;
-                    }
-                }
-
-            } catch (erro) {
-                console.error(erro);
-                document.getElementById('tabela-dados').innerHTML = `<tr><td colspan="4" class="text-center py-8 text-red-500 font-bold">Erro ao processar 'Dados.xlsx'. Certifique-se de que o arquivo está na mesma pasta do HTML.</td></tr>`;
-            }
+        } catch (err) {
+            console.error(err);
+            document.getElementById('tbody').innerHTML =
+                `<tr><td colspan="4" class="loading error">❌ ${err.message}</td></tr>`;
         }
+    }
 
-        // Função mágica do clique que expande/recolhe e muda a setinha
-        function toggleRegiao(classeRegiao) {
-            const linhas = document.getElementsByClassName(classeRegiao);
-            const seta = document.getElementById('seta-' + classeRegiao);
-            
-            for (let i = 0; i < linhas.length; i++) {
-                if (linhas[i].style.display === "table-row") {
-                    linhas[i].style.display = "none";
-                    seta.innerText = "▶";
-                } else {
-                    linhas[i].style.display = "table-row";
-                    seta.innerText = "▼";
-                }
-            }
-        }
-
-        processarExcel();
-    </script>
+    carregar();
+</script>
 </body>
 </html>
