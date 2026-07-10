@@ -207,11 +207,18 @@
 </div>
 
 <script>
-    const FILE = 'Dados.xlsx';
+    // O site tenta, nesta ordem:
+    // 1) 'Extracao.xlsx' — a extração crua do sistema (sem coluna Região), renomeada
+    //    sempre com esse nome fixo (o "(94)" do nome original pode mudar a cada exportação,
+    //    por isso o arquivo precisa ser salvo/renomeado como 'Extracao.xlsx' antes do upload).
+    //    Nesse caso a Região é calculada automaticamente via 'INDEX.xlsx' (ver abaixo).
+    // 2) 'Dados.xlsx' — o arquivo antigo, já com a coluna Região pronta (fluxo manual anterior).
+    const ARQUIVOS_DADOS = ['Extracao.xlsx', 'Dados.xlsx'];
+    const ARQUIVO_INDEX = 'INDEX.xlsx';
 
-    // Agrupamos pela coluna "Região" da planilha (é a região do REPRESENTANTE,
-    // não do estado da venda — um representante do Sul/Centro Oeste que vende
-    // para o Tocantins, por exemplo, continua contando no grupo Sul/Centro Oeste).
+    // Agrupamos pela coluna "Região" (é a região do REPRESENTANTE, não do estado da
+    // venda — um representante do Sul/Centro Oeste que vende para o Tocantins, por
+    // exemplo, continua contando no grupo Sul/Centro Oeste).
     //
     // A comparação é "normalizada" (remove acentos, ignora maiúsc./minúsc. e
     // espaços duplicados) para não quebrar se a planilha vier com formatação
@@ -248,6 +255,55 @@
             if (normalizarTexto(chave) === alvoNormalizado) return chave;
         }
         return null;
+    }
+
+    // Tenta buscar cada arquivo da lista, na ordem, e retorna o primeiro que existir.
+    async function buscarPrimeiroDisponivel(nomes) {
+        for (const nome of nomes) {
+            try {
+                const resp = await fetch(nome);
+                if (resp.ok) return { nome, buf: await resp.arrayBuffer() };
+            } catch (e) { /* segue tentando o próximo */ }
+        }
+        return null;
+    }
+
+    // Replica: =SEERRO(PROCV(codigo; index; col_região); PROCV(estado; index; col_região))
+    // 1º tenta achar a região pelo código do representante no INDEX.
+    // 2º se não achar, cai para a região associada ao estado (UF) no INDEX.
+    async function construirBuscadorDeRegiao() {
+        const arq = await buscarPrimeiroDisponivel([ARQUIVO_INDEX]);
+        if (!arq) throw new Error(`Arquivo de índice não encontrado: ${ARQUIVO_INDEX}`);
+
+        const wb = XLSX.read(arq.buf, { type: 'array' });
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        const linhas = XLSX.utils.sheet_to_json(ws, { defval: null });
+        if (linhas.length === 0) throw new Error('INDEX.xlsx está vazio.');
+
+        const colCodigo = localizarColuna(linhas[0], 'CODIGO');
+        const colEstado = localizarColuna(linhas[0], 'ESTADO');
+        const colRegiao = localizarColuna(linhas[0], 'REGIAO');
+        if (!colCodigo || !colEstado || !colRegiao) {
+            throw new Error('INDEX.xlsx precisa ter as colunas "codigo", "ESTADO" e "região".');
+        }
+
+        const porCodigo = new Map();
+        const porEstado = new Map();
+        linhas.forEach(l => {
+            const cod = l[colCodigo];
+            const est = normalizarTexto(l[colEstado]);
+            const reg = l[colRegiao];
+            if (cod != null && !porCodigo.has(cod)) porCodigo.set(cod, reg);
+            if (est && !porEstado.has(est)) porEstado.set(est, reg);
+        });
+
+        // Retorna uma função (codigoRepresentante, uf) => texto da região (ou null)
+        return (codigo, uf) => {
+            if (codigo != null && porCodigo.has(codigo)) return porCodigo.get(codigo);
+            const est = normalizarTexto(uf);
+            if (porEstado.has(est)) return porEstado.get(est);
+            return null;
+        };
     }
 
     // Feriados que caem em dia útil (seg-sex) e por isso devem ser descontados
@@ -333,10 +389,10 @@
 
     async function carregar() {
         try {
-            const resp = await fetch(FILE);
-            if (!resp.ok) throw new Error(`Arquivo não encontrado: ${FILE}`);
-            const buf = await resp.arrayBuffer();
-            const wb = XLSX.read(buf, { type: 'array' });
+            const arq = await buscarPrimeiroDisponivel(ARQUIVOS_DADOS);
+            if (!arq) throw new Error(`Nenhum arquivo de dados encontrado (tentei: ${ARQUIVOS_DADOS.join(', ')})`);
+
+            const wb = XLSX.read(arq.buf, { type: 'array' });
 
             // Usar a primeira aba (Export)
             const ws = wb.Sheets[wb.SheetNames[0]];
@@ -349,19 +405,39 @@
             const colUF     = localizarColuna(rows[0], 'UNIDADE FEDERATIVA');
             const colMeta   = localizarColuna(rows[0], 'META VENDAS');
             const colReal   = localizarColuna(rows[0], 'TOTAL GERAL');
+            const colRep    = localizarColuna(rows[0], 'ID REPRESENTANTE');
 
-            if (!colRegiao) console.warn('Coluna "Região" não encontrada na planilha — verifique o cabeçalho.');
+            // Se o arquivo já vem com a coluna Região pronta (fluxo antigo, ex.: Dados.xlsx),
+            // usamos ela direto. Caso contrário (extração crua do sistema), calculamos a
+            // região automaticamente via INDEX.xlsx: 1º pelo código do representante,
+            // 2º (se não achar) pelo estado (UF) da linha — igual ao =SEERRO(PROCV;PROCV).
+            let buscarRegiao = null;
+            if (!colRegiao) {
+                buscarRegiao = await construirBuscadorDeRegiao();
+            }
+
+            // A extração do sistema costuma trazer linhas de rodapé no fim da planilha
+            // (uma linha "Total", uma linha em branco, um bloco de texto com os filtros
+            // aplicados). Nenhuma delas tem um ID de representante válido, então
+            // descartamos qualquer linha sem representante numérico antes de somar.
+            const linhas = colRep
+                ? rows.filter(r => typeof r[colRep] === 'number')
+                : rows;
 
             // Acumular totais
             let brasil = { meta: 0, real: 0 };
             const regioes = {};   // chave = código do grupo (SUL_CO, SUDESTE, NORTE_NE, OUTROS)
             const estados = {};   // chave = "grupo||UF"
 
-            rows.forEach(r => {
+            linhas.forEach(r => {
                 const meta  = parseFloat(r[colMeta] || 0) || 0;
                 const real  = parseFloat(r[colReal] || 0) || 0;
                 const uf    = (r[colUF] || 'NÃO INFORMADO').trim().toUpperCase();
-                const grupo = grupoDaRegiao(colRegiao ? r[colRegiao] : null);
+
+                const regiaoTexto = colRegiao
+                    ? r[colRegiao]
+                    : buscarRegiao(colRep ? r[colRep] : null, uf);
+                const grupo = grupoDaRegiao(regiaoTexto);
 
                 brasil.meta += meta;
                 brasil.real += real;
