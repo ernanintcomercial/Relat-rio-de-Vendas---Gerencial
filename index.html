@@ -18,11 +18,11 @@
 
         .container { max-width: 960px; margin: 0 auto; }
 
-        header {
+        header { margin-bottom: 24px; }
+        .header-top {
             display: flex;
             align-items: baseline;
             gap: 12px;
-            margin-bottom: 24px;
             flex-wrap: wrap;
         }
         header h1 {
@@ -36,6 +36,12 @@
             color: #6b7280;
             font-weight: 400;
         }
+        .update-info {
+            margin-top: 6px;
+            font-size: 0.78rem;
+            color: #6b7280;
+        }
+        .update-info strong { color: #1a1a2e; }
 
         .card {
             background: #fff;
@@ -48,7 +54,7 @@
         /* Garante que as colunas nunca fiquem "espremidas" a ponto de
            virar ilegível; abaixo de min-width o card rola na horizontal
            em vez de quebrar os números de forma estranha. */
-        table { width: 100%; min-width: 520px; border-collapse: collapse; }
+        table { width: 100%; min-width: 620px; border-collapse: collapse; }
 
         /* HEADER */
         thead tr {
@@ -168,28 +174,33 @@
             .row-regiao td { font-size: 0.76rem; }
             .row-estado td { font-size: 0.72rem; padding-left: 26px; }
             .badge { padding: 2px 6px; min-width: 40px; font-size: 0.68rem; }
-            table { min-width: 460px; }
+            table { min-width: 560px; }
+            .update-info { font-size: 0.72rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <header>
-        <h1>📊 Acompanhamento de Vendas</h1>
-        <span>clique nas regiões para expandir</span>
+        <div class="header-top">
+            <h1>📊 Acompanhamento de Vendas</h1>
+            <span>clique nas regiões para expandir</span>
+        </div>
+        <div class="update-info" id="updateInfo"></div>
     </header>
     <div class="card">
         <table>
             <thead>
                 <tr>
-                    <th style="width:45%">Região / Estado</th>
-                    <th>Meta</th>
+                    <th style="width:32%">Região / Estado</th>
+                    <th>Meta Total</th>
+                    <th id="thMetaParcial">Meta até --/--</th>
                     <th>Realizado</th>
                     <th>Atingimento</th>
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr><td colspan="4" class="loading">Carregando dados...</td></tr>
+                <tr><td colspan="5" class="loading">Carregando dados...</td></tr>
             </tbody>
         </table>
     </div>
@@ -204,6 +215,57 @@
         'SUDESTE':            '🗺️ Sudeste',
         'NORTE   NORDESTE':   '🗺️ Norte e Nordeste',
     };
+
+    // Feriados que caem em dia útil (seg-sex) e por isso devem ser descontados
+    // do cálculo de dias úteis do mês. Adicione no formato 'AAAA-MM-DD'.
+    // Ex.: '2026-09-07' (Independência), '2026-11-02' (Finados)...
+    const FERIADOS = [
+        // '2026-07-09',
+    ];
+
+    function ehDiaUtil(date) {
+        const diaSemana = date.getDay(); // 0 = domingo, 6 = sábado
+        if (diaSemana === 0 || diaSemana === 6) return false;
+        const iso = date.toISOString().slice(0, 10);
+        if (FERIADOS.includes(iso)) return false;
+        return true;
+    }
+
+    function contarDiasUteis(inicio, fim) {
+        if (fim < inicio) return 0;
+        let count = 0;
+        const d = new Date(inicio);
+        while (d <= fim) {
+            if (ehDiaUtil(d)) count++;
+            d.setDate(d.getDate() + 1);
+        }
+        return count;
+    }
+
+    function fmtData(d) {
+        return d.toLocaleDateString('pt-BR');
+    }
+
+    // ---- Cálculo do fator de meta parcial (até o dia anterior) ----
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    const inicioMes = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+    const fimMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
+    const ontem = new Date(hoje);
+    ontem.setDate(hoje.getDate() - 1);
+
+    const diasUteisMes = contarDiasUteis(inicioMes, fimMes);
+    // Se hoje é dia 1º do mês, ainda não houve dia útil decorrido neste mês
+    const dentroDoMes = ontem.getMonth() === hoje.getMonth() && ontem.getFullYear() === hoje.getFullYear();
+    const diasUteisDecorridos = dentroDoMes ? contarDiasUteis(inicioMes, ontem) : 0;
+    const fatorMetaParcial = diasUteisMes > 0 ? (diasUteisDecorridos / diasUteisMes) : 0;
+
+    // Preenche cabeçalho com data de atualização e rótulo da coluna de meta parcial
+    document.getElementById('updateInfo').innerHTML =
+        `Última atualização: <strong>${fmtData(hoje)}</strong> &nbsp;·&nbsp; ` +
+        `Dias úteis decorridos: <strong>${diasUteisDecorridos}/${diasUteisMes}</strong>`;
+    document.getElementById('thMetaParcial').textContent = `Meta até ${fmtData(ontem)}`;
 
     function fmt(v) {
         return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
@@ -277,15 +339,21 @@
                 ...Object.keys(regioes).filter(k => !ordemRegioes.includes(k))
             ];
 
+            // Meta parcial (até o dia anterior), proporcional aos dias úteis já decorridos no mês
+            brasil.metaAteOntem = brasil.meta * fatorMetaParcial;
+            Object.values(regioes).forEach(rd => { rd.metaAteOntem = rd.meta * fatorMetaParcial; });
+            Object.values(estados).forEach(e => { e.metaAteOntem = e.meta * fatorMetaParcial; });
+
             const tbody = document.getElementById('tbody');
             tbody.innerHTML = '';
 
             // ---- BRASIL ----
-            const pBr = pct(brasil.real, brasil.meta);
+            const pBr = pct(brasil.real, brasil.metaAteOntem);
             tbody.insertAdjacentHTML('beforeend', `
                 <tr class="row-brasil">
                     <td>🇧🇷 BRASIL</td>
                     <td>${fmt(brasil.meta)}</td>
+                    <td>${fmt(brasil.metaAteOntem)}</td>
                     <td>${fmt(brasil.real)}</td>
                     <td><span class="${badgeClass(pBr,'brasil')}">${pBr}%</span></td>
                 </tr>
@@ -294,7 +362,7 @@
             // ---- REGIÕES + ESTADOS ----
             regSorted.forEach((reg, idx) => {
                 const rd = regioes[reg];
-                const pR = pct(rd.real, rd.meta);
+                const pR = pct(rd.real, rd.metaAteOntem);
                 const label = NOMES_REGIAO[reg] || ('🗺️ ' + reg);
 
                 tbody.insertAdjacentHTML('beforeend', `
@@ -306,6 +374,7 @@
                             </div>
                         </td>
                         <td>${fmt(rd.meta)}</td>
+                        <td>${fmt(rd.metaAteOntem)}</td>
                         <td>${fmt(rd.real)}</td>
                         <td><span class="${badgeClass(pR,'regiao')}">${pR}%</span></td>
                     </tr>
@@ -317,11 +386,12 @@
                     .sort((a, b) => b.meta - a.meta);
 
                 ufsRegiao.forEach(e => {
-                    const pE = pct(e.real, e.meta);
+                    const pE = pct(e.real, e.metaAteOntem);
                     tbody.insertAdjacentHTML('beforeend', `
                         <tr class="row-estado estado-${idx}">
                             <td>${e.uf}</td>
                             <td>${fmt(e.meta)}</td>
+                            <td>${fmt(e.metaAteOntem)}</td>
                             <td>${fmt(e.real)}</td>
                             <td><span class="${badgeClass(pE,'estado')}">${pE}%</span></td>
                         </tr>
@@ -332,7 +402,7 @@
         } catch (err) {
             console.error(err);
             document.getElementById('tbody').innerHTML =
-                `<tr><td colspan="4" class="loading error">❌ ${err.message}</td></tr>`;
+                `<tr><td colspan="5" class="loading error">❌ ${err.message}</td></tr>`;
         }
     }
 
