@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acompanhamento de Vendas</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -207,161 +206,14 @@
 </div>
 
 <script>
-    // O site tenta, nesta ordem:
-    // 1) 'Extracao.xlsx' — a extração crua do sistema (sem coluna Região), renomeada
-    //    sempre com esse nome fixo (o "(94)" do nome original pode mudar a cada exportação,
-    //    por isso o arquivo precisa ser salvo/renomeado como 'Extracao.xlsx' antes do upload).
-    //    Nesse caso a Região é calculada automaticamente via 'INDEX.xlsx' (ver abaixo).
-    // 2) 'Dados.xlsx' — o arquivo antigo, já com a coluna Região pronta (fluxo manual anterior).
-    const ARQUIVOS_DADOS = ['Extracao.xlsx', 'Dados.xlsx'];
-    const ARQUIVO_INDEX = 'INDEX.xlsx';
-
-    // Agrupamos pela coluna "Região" (é a região do REPRESENTANTE, não do estado da
-    // venda — um representante do Sul/Centro Oeste que vende para o Tocantins, por
-    // exemplo, continua contando no grupo Sul/Centro Oeste).
-    //
-    // A comparação é "normalizada" (remove acentos, ignora maiúsc./minúsc. e
-    // espaços duplicados) para não quebrar se a planilha vier com formatação
-    // ligeiramente diferente (ex.: "Sul e Centro Oeste" vs "SUL   CENTRO OESTE").
-    const NOMES_GRUPO = {
-        'SUL_CO':   '🗺️ Sul e Centro Oeste',
-        'SUDESTE':  '🗺️ Sudeste',
-        'NORTE_NE': '🗺️ Norte e Nordeste',
-        'OUTROS':   '🗺️ Outras / Não informado',
-    };
-    const ORDEM_GRUPOS = ['SUL_CO', 'SUDESTE', 'NORTE_NE', 'OUTROS'];
-
-    function semAcento(s) {
-        return String(s == null ? '' : s).normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
-    }
-
-    function normalizarTexto(s) {
-        return semAcento(s).toUpperCase().replace(/\s+/g, ' ').trim();
-    }
-
-    function grupoDaRegiao(regRaw) {
-        const t = normalizarTexto(regRaw);
-        if (!t) return 'OUTROS';
-        if (t.includes('SUDESTE')) return 'SUDESTE';
-        if (t.includes('NORTE') || t.includes('NORDESTE')) return 'NORTE_NE';
-        if (t.includes('SUL') || t.includes('CENTRO')) return 'SUL_CO';
-        return 'OUTROS';
-    }
-
-    // Encontra o nome exato da coluna na planilha, ignorando acento/maiúscula/espaço.
-    // Assim funciona mesmo se o cabeçalho vier como "Região", "REGIAO", "Regiao " etc.
-    function localizarColuna(linhaExemplo, alvoNormalizado) {
-        for (const chave in linhaExemplo) {
-            if (normalizarTexto(chave) === alvoNormalizado) return chave;
-        }
-        return null;
-    }
-
-    // Tenta buscar cada arquivo da lista, na ordem, e retorna o primeiro que existir.
-    async function buscarPrimeiroDisponivel(nomes) {
-        for (const nome of nomes) {
-            try {
-                const resp = await fetch(nome);
-                if (resp.ok) return { nome, buf: await resp.arrayBuffer() };
-            } catch (e) { /* segue tentando o próximo */ }
-        }
-        return null;
-    }
-
-    // Replica: =SEERRO(PROCV(codigo; index; col_região); PROCV(estado; index; col_região))
-    // 1º tenta achar a região pelo código do representante no INDEX.
-    // 2º se não achar, cai para a região associada ao estado (UF) no INDEX.
-    async function construirBuscadorDeRegiao() {
-        const arq = await buscarPrimeiroDisponivel([ARQUIVO_INDEX]);
-        if (!arq) throw new Error(`Arquivo de índice não encontrado: ${ARQUIVO_INDEX}`);
-
-        const wb = XLSX.read(arq.buf, { type: 'array' });
-        const ws = wb.Sheets[wb.SheetNames[0]];
-        const linhas = XLSX.utils.sheet_to_json(ws, { defval: null });
-        if (linhas.length === 0) throw new Error('INDEX.xlsx está vazio.');
-
-        const colCodigo = localizarColuna(linhas[0], 'CODIGO');
-        const colEstado = localizarColuna(linhas[0], 'ESTADO');
-        const colRegiao = localizarColuna(linhas[0], 'REGIAO');
-        if (!colCodigo || !colEstado || !colRegiao) {
-            throw new Error('INDEX.xlsx precisa ter as colunas "codigo", "ESTADO" e "região".');
-        }
-
-        const porCodigo = new Map();
-        const porEstado = new Map();
-        linhas.forEach(l => {
-            const cod = l[colCodigo];
-            const est = normalizarTexto(l[colEstado]);
-            const reg = l[colRegiao];
-            if (cod != null && !porCodigo.has(cod)) porCodigo.set(cod, reg);
-            if (est && !porEstado.has(est)) porEstado.set(est, reg);
-        });
-
-        // Retorna uma função (codigoRepresentante, uf) => texto da região (ou null)
-        return (codigo, uf) => {
-            if (codigo != null && porCodigo.has(codigo)) return porCodigo.get(codigo);
-            const est = normalizarTexto(uf);
-            if (porEstado.has(est)) return porEstado.get(est);
-            return null;
-        };
-    }
-
-    // Feriados que caem em dia útil (seg-sex) e por isso devem ser descontados
-    // do cálculo de dias úteis do mês. Adicione no formato 'AAAA-MM-DD'.
-    // Ex.: '2026-09-07' (Independência), '2026-11-02' (Finados)...
-    const FERIADOS = [
-        '2026-09-07',   // Independência
-        '2026-10-12',   // Nossa Senhora Aparecida
-        '2026-11-02',   // Finados
-        '2026-11-15',   // Proclamação da República
-    ];
-
-    function ehDiaUtil(date) {
-        const diaSemana = date.getDay(); // 0 = domingo, 6 = sábado
-        if (diaSemana === 0 || diaSemana === 6) return false;
-        const iso = date.toISOString().slice(0, 10);
-        if (FERIADOS.includes(iso)) return false;
-        return true;
-    }
-
-    function contarDiasUteis(inicio, fim) {
-        if (fim < inicio) return 0;
-        let count = 0;
-        const d = new Date(inicio);
-        while (d <= fim) {
-            if (ehDiaUtil(d)) count++;
-            d.setDate(d.getDate() + 1);
-        }
-        return count;
-    }
-
-    function fmtData(d) {
-        return d.toLocaleDateString('pt-BR');
-    }
-
-    // ---- Cálculo do fator de meta parcial (até o dia anterior) ----
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
-
-    const inicioMes = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
-    const fimMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
-    const ontem = new Date(hoje);
-    ontem.setDate(hoje.getDate() - 1);
-
-    const diasUteisMes = contarDiasUteis(inicioMes, fimMes);
-    // Se hoje é dia 1º do mês, ainda não houve dia útil decorrido neste mês
-    const dentroDoMes = ontem.getMonth() === hoje.getMonth() && ontem.getFullYear() === hoje.getFullYear();
-    const diasUteisDecorridos = dentroDoMes ? contarDiasUteis(inicioMes, ontem) : 0;
-    const fatorMetaParcial = diasUteisMes > 0 ? (diasUteisDecorridos / diasUteisMes) : 0;
-
-    // Preenche cabeçalho com data de atualização e rótulo da coluna de meta parcial
-    document.getElementById('updateInfo').innerHTML =
-        `Última atualização: <strong>${fmtData(hoje)}</strong> &nbsp;·&nbsp; ` +
-        `Dias úteis decorridos: <strong>${diasUteisDecorridos}/${diasUteisMes}</strong>`;
-    document.getElementById('thMetaParcial').textContent = `Meta até ${fmtData(ontem)}`;
+    // Este site NÃO processa mais planilha nenhuma no navegador — ele só lê
+    // o resumo.json, que já vem pronto (gerado no repositório privado).
+    // Isso significa que nenhum dado individual (representante, cidade,
+    // contrato) fica público — só os totais por região/UF.
+    const ARQUIVO_RESUMO = 'resumo.json';
 
     function fmt(v) {
-        return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+        return (v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
     }
 
     function pct(realizado, meta) {
@@ -392,84 +244,20 @@
 
     async function carregar() {
         try {
-            const arq = await buscarPrimeiroDisponivel(ARQUIVOS_DADOS);
-            if (!arq) throw new Error(`Nenhum arquivo de dados encontrado (tentei: ${ARQUIVOS_DADOS.join(', ')})`);
+            const resp = await fetch(ARQUIVO_RESUMO + '?t=' + Date.now()); // evita cache velho
+            if (!resp.ok) throw new Error(`Arquivo não encontrado: ${ARQUIVO_RESUMO}`);
+            const resumo = await resp.json();
 
-            const wb = XLSX.read(arq.buf, { type: 'array' });
-
-            // Usar a primeira aba (Export)
-            const ws = wb.Sheets[wb.SheetNames[0]];
-            const rows = XLSX.utils.sheet_to_json(ws, { defval: null });
-
-            if (rows.length === 0) throw new Error('Planilha sem dados na primeira aba.');
-
-            // Localiza os nomes reais das colunas na planilha (tolerante a acento/maiúscula/espaço)
-            const colRegiao = localizarColuna(rows[0], 'REGIAO');
-            const colUF     = localizarColuna(rows[0], 'UNIDADE FEDERATIVA');
-            const colMeta   = localizarColuna(rows[0], 'META VENDAS');
-            const colReal   = localizarColuna(rows[0], 'TOTAL GERAL');
-            const colRep    = localizarColuna(rows[0], 'ID REPRESENTANTE');
-
-            // Se o arquivo já vem com a coluna Região pronta (fluxo antigo, ex.: Dados.xlsx),
-            // usamos ela direto. Caso contrário (extração crua do sistema), calculamos a
-            // região automaticamente via INDEX.xlsx: 1º pelo código do representante,
-            // 2º (se não achar) pelo estado (UF) da linha — igual ao =SEERRO(PROCV;PROCV).
-            let buscarRegiao = null;
-            if (!colRegiao) {
-                buscarRegiao = await construirBuscadorDeRegiao();
-            }
-
-            // A extração do sistema costuma trazer linhas de rodapé no fim da planilha
-            // (uma linha "Total", uma linha em branco, um bloco de texto com os filtros
-            // aplicados). Nenhuma delas tem um ID de representante válido, então
-            // descartamos qualquer linha sem representante numérico antes de somar.
-            const linhas = colRep
-                ? rows.filter(r => typeof r[colRep] === 'number')
-                : rows;
-
-            // Acumular totais
-            let brasil = { meta: 0, real: 0 };
-            const regioes = {};   // chave = código do grupo (SUL_CO, SUDESTE, NORTE_NE, OUTROS)
-            const estados = {};   // chave = "grupo||UF"
-
-            linhas.forEach(r => {
-                const meta  = parseFloat(r[colMeta] || 0) || 0;
-                const real  = parseFloat(r[colReal] || 0) || 0;
-                const uf    = (r[colUF] || 'NÃO INFORMADO').trim().toUpperCase();
-
-                const regiaoTexto = colRegiao
-                    ? r[colRegiao]
-                    : buscarRegiao(colRep ? r[colRep] : null, uf);
-                const grupo = grupoDaRegiao(regiaoTexto);
-
-                brasil.meta += meta;
-                brasil.real += real;
-
-                if (!regioes[grupo]) regioes[grupo] = { meta: 0, real: 0 };
-                regioes[grupo].meta += meta;
-                regioes[grupo].real += real;
-
-                const key = grupo + '||' + uf;
-                if (!estados[key]) estados[key] = { grupo, uf, meta: 0, real: 0 };
-                estados[key].meta += meta;
-                estados[key].real += real;
-            });
-
-            // Ordenar regiões pela ordem preferida
-            const regSorted = [
-                ...ORDEM_GRUPOS.filter(k => regioes[k]),
-                ...Object.keys(regioes).filter(k => !ORDEM_GRUPOS.includes(k))
-            ];
-
-            // Meta parcial (até o dia anterior), proporcional aos dias úteis já decorridos no mês
-            brasil.metaAteOntem = brasil.meta * fatorMetaParcial;
-            Object.values(regioes).forEach(rd => { rd.metaAteOntem = rd.meta * fatorMetaParcial; });
-            Object.values(estados).forEach(e => { e.metaAteOntem = e.meta * fatorMetaParcial; });
+            document.getElementById('updateInfo').innerHTML =
+                `Última atualização: <strong>${resumo.geradoEm}</strong> &nbsp;·&nbsp; ` +
+                `Dias úteis decorridos: <strong>${resumo.diasUteisDecorridos}/${resumo.diasUteisMes}</strong>`;
+            document.getElementById('thMetaParcial').textContent = `Meta até ${resumo.metaAteData}`;
 
             const tbody = document.getElementById('tbody');
             tbody.innerHTML = '';
 
             // ---- BRASIL ----
+            const brasil = resumo.brasil;
             const pBr = pct(brasil.real, brasil.metaAteOntem);
             tbody.insertAdjacentHTML('beforeend', `
                 <tr class="row-brasil">
@@ -482,17 +270,15 @@
             `);
 
             // ---- REGIÕES + ESTADOS ----
-            regSorted.forEach((grupo, idx) => {
-                const rd = regioes[grupo];
+            resumo.regioes.forEach((rd, idx) => {
                 const pR = pct(rd.real, rd.metaAteOntem);
-                const label = NOMES_GRUPO[grupo] || ('🗺️ ' + grupo);
 
                 tbody.insertAdjacentHTML('beforeend', `
                     <tr class="row-regiao" id="reg-${idx}" onclick="toggleRegiao(${idx})">
                         <td>
                             <div class="label-cell">
                                 <span class="arrow">▶</span>
-                                ${label}
+                                ${rd.nome}
                             </div>
                         </td>
                         <td>${fmt(rd.meta)}</td>
@@ -502,12 +288,7 @@
                     </tr>
                 `);
 
-                // Estados desta região, ordenados por Meta desc
-                const ufsRegiao = Object.values(estados)
-                    .filter(e => e.grupo === grupo)
-                    .sort((a, b) => b.meta - a.meta);
-
-                ufsRegiao.forEach(e => {
+                rd.estados.forEach(e => {
                     const pE = pct(e.real, e.metaAteOntem);
                     tbody.insertAdjacentHTML('beforeend', `
                         <tr class="row-estado estado-${idx}">
