@@ -100,7 +100,7 @@
         }
         .row-regiao:hover td { background: #eff6ff; }
         .row-regiao td:not(:first-child) { text-align: right; }
-        .row-regiao .label-cell { display: flex; align-items: center; gap: 8px; }
+        .label-cell { display: flex; align-items: center; gap: 8px; }
         .arrow {
             display: inline-flex;
             align-items: center;
@@ -119,19 +119,53 @@
             color: #1d4ed8;
         }
 
-        /* ESTADO row */
+        /* ESTADO row (agora também clicável, expande representantes) */
         .row-estado td {
-            padding: 10px 16px 10px 48px;
+            padding: 10px 16px 10px 40px;
             background: #fff;
             font-size: 0.8rem;
             color: #374151;
             border-bottom: 1px solid #f3f4f6;
             transition: background .1s;
+            cursor: pointer;
+            user-select: none;
         }
         .row-estado:hover td { background: #f9fafb; }
         .row-estado td:not(:first-child) { text-align: right; }
         .row-estado { display: none; }
         .row-estado.visible { display: table-row; }
+        .row-estado .arrow { width: 16px; height: 16px; font-size: 0.55rem; }
+        .row-estado.open .arrow { transform: rotate(90deg); background: #dbeafe; color: #1d4ed8; }
+
+        /* REPRESENTANTE row (clicável, expande contratos) */
+        .row-representante td {
+            padding: 9px 16px 9px 62px;
+            background: #fbfcfd;
+            font-size: 0.76rem;
+            color: #4b5563;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background .1s;
+            cursor: pointer;
+            user-select: none;
+        }
+        .row-representante:hover td { background: #f3f4f6; }
+        .row-representante td:not(:first-child) { text-align: right; }
+        .row-representante { display: none; }
+        .row-representante.visible { display: table-row; }
+        .row-representante .arrow { width: 14px; height: 14px; font-size: 0.5rem; }
+        .row-representante.open .arrow { transform: rotate(90deg); background: #dbeafe; color: #1d4ed8; }
+
+        /* CONTRATO row (nível mais fundo, não clicável) */
+        .row-contrato td {
+            padding: 7px 16px 7px 84px;
+            background: #fff;
+            font-size: 0.72rem;
+            color: #6b7280;
+            border-bottom: 1px solid #f8fafc;
+        }
+        .row-contrato td:not(:first-child) { text-align: right; }
+        .row-contrato { display: none; }
+        .row-contrato.visible { display: table-row; }
 
         /* BADGE % */
         .badge {
@@ -146,6 +180,7 @@
         .badge-brasil  { background: #d1fae5; color: #065f46; }
         .badge-regiao  { background: #dbeafe; color: #1e40af; }
         .badge-estado  { background: #f3f4f6; color: #374151; }
+        .badge-contrato{ background: #f9fafb; color: #6b7280; font-weight: 600; }
         .badge-low     { background: #fee2e2; color: #991b1b; }
         .badge-mid     { background: #fef3c7; color: #92400e; }
 
@@ -162,16 +197,20 @@
             header { gap: 8px; margin-bottom: 16px; }
             header h1 { font-size: 1.25rem; }
             .card { border-radius: 10px; }
-            .row-estado td { padding-left: 32px; }
-            thead th, .row-brasil td, .row-regiao td, .row-estado td { padding: 11px 10px; }
+            .row-estado td { padding-left: 28px; }
+            .row-representante td { padding-left: 42px; }
+            .row-contrato td { padding-left: 56px; }
+            thead th, .row-brasil td, .row-regiao td, .row-estado td, .row-representante td, .row-contrato td { padding-top: 10px; padding-bottom: 10px; padding-right: 10px; }
             .arrow { width: 22px; height: 22px; }
         }
 
         @media (max-width: 400px) {
-            thead th, .row-brasil td, .row-regiao td, .row-estado td { padding: 9px 8px; font-size: 0.72rem; }
-            .row-brasil td { font-size: 0.8rem; }
-            .row-regiao td { font-size: 0.76rem; }
-            .row-estado td { font-size: 0.72rem; padding-left: 26px; }
+            thead th, .row-brasil td, .row-regiao td, .row-estado td, .row-representante td, .row-contrato td { padding-top: 8px; padding-bottom: 8px; padding-right: 8px; font-size: 0.7rem; }
+            .row-brasil td { font-size: 0.78rem; }
+            .row-regiao td { font-size: 0.74rem; }
+            .row-estado td { font-size: 0.7rem; padding-left: 22px; }
+            .row-representante td { font-size: 0.68rem; padding-left: 34px; }
+            .row-contrato td { font-size: 0.66rem; padding-left: 46px; }
             .badge { padding: 2px 6px; min-width: 40px; font-size: 0.68rem; }
             table { min-width: 560px; }
             .update-info { font-size: 0.72rem; }
@@ -183,7 +222,7 @@
     <header>
         <div class="header-top">
             <h1>📊 Acompanhamento de Vendas</h1>
-            <span>clique nas regiões para expandir</span>
+            <span>clique em região, estado ou representante para expandir</span>
         </div>
         <div class="update-info" id="updateInfo"></div>
     </header>
@@ -208,8 +247,10 @@
 <script>
     // Este site NÃO processa mais planilha nenhuma no navegador — ele só lê
     // o resumo.json, que já vem pronto (gerado no repositório privado).
-    // Isso significa que nenhum dado individual (representante, cidade,
-    // contrato) fica público — só os totais por região/UF.
+    // A partir da versão com detalhamento por representante/contrato, o
+    // resumo.json PASSA a conter dado individual (nome do representante).
+    // Por isso este site deve ficar atrás do Worker de autenticação
+    // (usuário/senha) — não publique este resumo.json sem essa proteção.
     const ARQUIVO_RESUMO = 'resumo.json';
 
     function fmt(v) {
@@ -233,13 +274,32 @@
         return 'badge badge-estado';
     }
 
-    function toggleRegiao(regiaoId) {
-        const headerRow = document.getElementById('reg-' + regiaoId);
-        const estadoRows = document.querySelectorAll('.estado-' + regiaoId);
-        const isOpen = headerRow.classList.contains('open');
+    // Cada linha (região/estado/representante/contrato) tem uma "chave" tipo
+    // "0", "0-2", "0-2-1", "0-2-1-3" — números separados por hífen indicando
+    // o caminho na árvore. toggle() abre/fecha os filhos DIRETOS dessa chave;
+    // ao fechar, fecha também tudo mais fundo (netos, bisnetos), pra não
+    // ficar um estado "lembrando" que estava aberto quando a região reabrir.
+    function ehFilhoDireto(chavePai, chaveTeste) {
+        if (!chaveTeste.startsWith(chavePai + '-')) return false;
+        return !chaveTeste.slice(chavePai.length + 1).includes('-');
+    }
 
-        headerRow.classList.toggle('open', !isOpen);
-        estadoRows.forEach(r => r.classList.toggle('visible', !isOpen));
+    function toggle(chave) {
+        const linha = document.getElementById('row-' + chave);
+        const abrindo = !linha.classList.contains('open');
+        linha.classList.toggle('open', abrindo);
+
+        document.querySelectorAll('[data-chave]').forEach(el => {
+            const chaveEl = el.getAttribute('data-chave');
+            if (ehFilhoDireto(chave, chaveEl)) {
+                el.classList.toggle('visible', abrindo);
+                if (!abrindo) el.classList.remove('open');
+            } else if (!abrindo && chaveEl.startsWith(chave + '-')) {
+                // fecha tudo mais fundo também, ao colapsar
+                el.classList.remove('visible');
+                el.classList.remove('open');
+            }
+        });
     }
 
     async function carregar() {
@@ -269,12 +329,13 @@
                 </tr>
             `);
 
-            // ---- REGIÕES + ESTADOS ----
-            resumo.regioes.forEach((rd, idx) => {
+            // ---- REGIÕES + ESTADOS + REPRESENTANTES + CONTRATOS ----
+            resumo.regioes.forEach((rd, ridx) => {
+                const chaveRegiao = String(ridx);
                 const pR = pct(rd.real, rd.metaAteOntem);
 
                 tbody.insertAdjacentHTML('beforeend', `
-                    <tr class="row-regiao" id="reg-${idx}" onclick="toggleRegiao(${idx})">
+                    <tr class="row-regiao" id="row-${chaveRegiao}" data-chave="${chaveRegiao}" onclick="toggle('${chaveRegiao}')">
                         <td>
                             <div class="label-cell">
                                 <span class="arrow">▶</span>
@@ -288,17 +349,56 @@
                     </tr>
                 `);
 
-                rd.estados.forEach(e => {
+                rd.estados.forEach((e, eidx) => {
+                    const chaveEstado = chaveRegiao + '-' + eidx;
                     const pE = pct(e.real, e.metaAteOntem);
                     tbody.insertAdjacentHTML('beforeend', `
-                        <tr class="row-estado estado-${idx}">
-                            <td>${e.uf}</td>
+                        <tr class="row-estado" id="row-${chaveEstado}" data-chave="${chaveEstado}" onclick="event.stopPropagation(); toggle('${chaveEstado}')">
+                            <td>
+                                <div class="label-cell">
+                                    <span class="arrow">▶</span>
+                                    ${e.uf}
+                                </div>
+                            </td>
                             <td>${fmt(e.meta)}</td>
                             <td>${fmt(e.metaAteOntem)}</td>
                             <td>${fmt(e.real)}</td>
                             <td><span class="${badgeClass(pE,'estado')}">${pE}%</span></td>
                         </tr>
                     `);
+
+                    (e.representantes || []).forEach((p, pidx) => {
+                        const chaveRep = chaveEstado + '-' + pidx;
+                        const pP = pct(p.real, p.metaAteOntem);
+                        tbody.insertAdjacentHTML('beforeend', `
+                            <tr class="row-representante" id="row-${chaveRep}" data-chave="${chaveRep}" onclick="event.stopPropagation(); toggle('${chaveRep}')">
+                                <td>
+                                    <div class="label-cell">
+                                        <span class="arrow">▶</span>
+                                        ${p.nome}
+                                    </div>
+                                </td>
+                                <td>${fmt(p.meta)}</td>
+                                <td>${fmt(p.metaAteOntem)}</td>
+                                <td>${fmt(p.real)}</td>
+                                <td><span class="${badgeClass(pP,'estado')}">${pP}%</span></td>
+                            </tr>
+                        `);
+
+                        (p.contratos || []).forEach((c, cidx) => {
+                            const chaveContrato = chaveRep + '-' + cidx;
+                            const pC = pct(c.real, c.metaAteOntem);
+                            tbody.insertAdjacentHTML('beforeend', `
+                                <tr class="row-contrato" data-chave="${chaveContrato}">
+                                    <td>${c.contrato}</td>
+                                    <td>${fmt(c.meta)}</td>
+                                    <td>${fmt(c.metaAteOntem)}</td>
+                                    <td>${fmt(c.real)}</td>
+                                    <td><span class="badge badge-contrato">${pC}%</span></td>
+                                </tr>
+                            `);
+                        });
+                    });
                 });
             });
 
