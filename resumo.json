@@ -1,97 +1,97 @@
 {
-  "geradoEm": "13/07/2026",
-  "metaAteData": "12/07/2026",
+  "geradoEm": "14/07/2026",
+  "metaAteData": "13/07/2026",
   "diasUteisMes": 23,
-  "diasUteisDecorridos": 8,
+  "diasUteisDecorridos": 9,
   "brasil": {
     "meta": 12161713.39,
-    "metaAteOntem": 4230161.18,
-    "real": 2477395.38
+    "metaAteOntem": 4758931.33,
+    "real": 4147920.24
   },
   "regioes": [
     {
       "grupo": "SUL_CO",
       "nome": "🗺️ Sul e Centro Oeste",
       "meta": 4734971.37,
-      "metaAteOntem": 1646946.56,
-      "real": 1520185.17,
+      "metaAteOntem": 1852814.88,
+      "real": 1841211.65,
       "estados": [
         {
           "uf": "SANTA CATARINA",
           "meta": 1503836,
-          "metaAteOntem": 523073.39,
-          "real": 469500.14
+          "metaAteOntem": 588457.57,
+          "real": 692443.71
         },
         {
           "uf": "PARANA",
           "meta": 1458424.04,
-          "metaAteOntem": 507277.93,
-          "real": 191722.77
+          "metaAteOntem": 570687.67,
+          "real": 244159.97
         },
         {
           "uf": "MATO GROSSO",
           "meta": 633652.17,
-          "metaAteOntem": 220400.75,
-          "real": 98906.62
+          "metaAteOntem": 247950.85,
+          "real": 121305.58
         },
         {
           "uf": "RIO GRANDE DO SUL",
           "meta": 621862.59,
-          "metaAteOntem": 216300.03,
+          "metaAteOntem": 243337.54,
           "real": 696643.23
         },
         {
           "uf": "GOIAS",
           "meta": 227999.74,
-          "metaAteOntem": 79304.26,
+          "metaAteOntem": 89217.29,
           "real": 19990.31
         },
         {
           "uf": "MATO GROSSO DO SUL",
           "meta": 131784.12,
-          "metaAteOntem": 45837.95,
+          "metaAteOntem": 51567.7,
           "real": 23153.86
         },
         {
           "uf": "DISTRITO FEDERAL",
           "meta": 123224.56,
-          "metaAteOntem": 42860.72,
+          "metaAteOntem": 48218.31,
           "real": 0
         },
         {
           "uf": "TOCANTIS",
           "meta": 21990.98,
-          "metaAteOntem": 7649.04,
+          "metaAteOntem": 8605.17,
           "real": 0
         },
         {
           "uf": "NÃO INFORMADO",
           "meta": 4526,
-          "metaAteOntem": 1574.26,
+          "metaAteOntem": 1771.04,
           "real": 0
         },
         {
           "uf": "SAO PAULO",
           "meta": 3890.01,
-          "metaAteOntem": 1353.05,
+          "metaAteOntem": 1522.18,
           "real": 0
         },
         {
           "uf": "ESPIRITO SANTO",
           "meta": 2327.8,
-          "metaAteOntem": 809.67,
+          "metaAteOntem": 910.88,
           "real": 0
         },
         {
           "uf": "PARA",
           "meta": 775.93,
-          "metaAteOntem": 269.89,
-          "real": 0
+          "metaAteOntem": 303.62,
+          "real": 23246.75
         },
         {
           "uf": "RIO DE JANEIRO",
           "meta": 677.43,
-          "metaAteOntem": 235.63,
+          "metaAteOntem": 265.08,
           "real": 20268.24
         }
       ]
@@ -100,97 +100,97 @@
       "grupo": "SUDESTE",
       "nome": "🗺️ Sudeste",
       "meta": 5771640.88,
-      "metaAteOntem": 2007527.26,
-      "real": 702155.49,
+      "metaAteOntem": 2258468.17,
+      "real": 2048043.75,
       "estados": [
         {
           "uf": "SAO PAULO",
           "meta": 3815913.79,
-          "metaAteOntem": 1327274.36,
-          "real": 230890.77
+          "metaAteOntem": 1493183.66,
+          "real": 1529548.18
         },
         {
           "uf": "MINAS GERAIS",
           "meta": 892524.84,
-          "metaAteOntem": 310443.42,
+          "metaAteOntem": 349248.85,
           "real": 342609.17
         },
         {
           "uf": "RIO DE JANEIRO",
           "meta": 566905.83,
-          "metaAteOntem": 197184.64,
-          "real": 49619
+          "metaAteOntem": 221832.72,
+          "real": 92608.26
         },
         {
           "uf": "ESPIRITO SANTO",
           "meta": 419690.07,
-          "metaAteOntem": 145979.15,
-          "real": 64680.19
+          "metaAteOntem": 164226.55,
+          "real": 68921.78
         },
         {
           "uf": "PARANA",
           "meta": 16980.45,
-          "metaAteOntem": 5906.24,
+          "metaAteOntem": 6644.52,
           "real": 0
         },
         {
           "uf": "SANTA CATARINA",
           "meta": 14155.99,
-          "metaAteOntem": 4923.82,
+          "metaAteOntem": 5539.3,
           "real": 0
         },
         {
           "uf": "RIO GRANDE DO SUL",
           "meta": 11778.75,
-          "metaAteOntem": 4096.96,
+          "metaAteOntem": 4609.08,
           "real": 0
         },
         {
           "uf": "ALAGOAS",
           "meta": 7119.16,
-          "metaAteOntem": 2476.23,
+          "metaAteOntem": 2785.76,
           "real": 0
         },
         {
           "uf": "RIO GRANDE DO NORTE",
           "meta": 6552.96,
-          "metaAteOntem": 2279.29,
+          "metaAteOntem": 2564.2,
           "real": 0
         },
         {
           "uf": "DISTRITO FEDERAL",
           "meta": 5380.89,
-          "metaAteOntem": 1871.61,
+          "metaAteOntem": 2105.57,
           "real": 0
         },
         {
           "uf": "NÃO INFORMADO",
           "meta": 4624.76,
-          "metaAteOntem": 1608.61,
+          "metaAteOntem": 1809.69,
           "real": 0
         },
         {
           "uf": "CEARA",
           "meta": 3977.95,
-          "metaAteOntem": 1383.63,
+          "metaAteOntem": 1556.59,
           "real": 0
         },
         {
           "uf": "GOIAS",
           "meta": 2827.48,
-          "metaAteOntem": 983.47,
+          "metaAteOntem": 1106.41,
           "real": 0
         },
         {
           "uf": "BAHIA",
           "meta": 2437.97,
-          "metaAteOntem": 847.99,
+          "metaAteOntem": 953.99,
           "real": 0
         },
         {
           "uf": "MATO GROSSO DO SUL",
           "meta": 769.99,
-          "metaAteOntem": 267.82,
+          "metaAteOntem": 301.3,
           "real": 0
         },
         {
@@ -205,85 +205,85 @@
       "grupo": "NORTE_NE",
       "nome": "🗺️ Norte e Nordeste",
       "meta": 1655101.14,
-      "metaAteOntem": 575687.35,
-      "real": 255054.72,
+      "metaAteOntem": 647648.27,
+      "real": 258664.84,
       "estados": [
         {
           "uf": "BAHIA",
           "meta": 433541.3,
-          "metaAteOntem": 150796.97,
+          "metaAteOntem": 169646.6,
           "real": 83341.46
         },
         {
           "uf": "PERNAMBUCO",
           "meta": 232010.97,
-          "metaAteOntem": 80699.47,
+          "metaAteOntem": 90786.9,
           "real": 0
         },
         {
           "uf": "CEARA",
           "meta": 191657.6,
-          "metaAteOntem": 66663.51,
+          "metaAteOntem": 74996.45,
           "real": 64535.76
         },
         {
           "uf": "AMAZONAS",
           "meta": 159157.81,
-          "metaAteOntem": 55359.24,
+          "metaAteOntem": 62279.14,
           "real": 7105.69
         },
         {
           "uf": "PARA",
           "meta": 147485.2,
-          "metaAteOntem": 51299.2,
+          "metaAteOntem": 57711.6,
           "real": 20895.4
         },
         {
           "uf": "ALAGOAS",
           "meta": 113835.79,
-          "metaAteOntem": 39595.06,
+          "metaAteOntem": 44544.44,
           "real": 44309.39
         },
         {
           "uf": "MARANHAO",
           "meta": 105720.03,
-          "metaAteOntem": 36772.18,
+          "metaAteOntem": 41368.71,
           "real": 0
         },
         {
           "uf": "RONDONIA",
           "meta": 91421.68,
-          "metaAteOntem": 31798.85,
-          "real": 2017.17
+          "metaAteOntem": 35773.7,
+          "real": 5627.29
         },
         {
           "uf": "PARAIBA",
           "meta": 85939.83,
-          "metaAteOntem": 29892.11,
+          "metaAteOntem": 33628.63,
           "real": 20261.3
         },
         {
           "uf": "SERGIPE",
           "meta": 44568.22,
-          "metaAteOntem": 15501.99,
+          "metaAteOntem": 17439.74,
           "real": 0
         },
         {
           "uf": "RORAIMA",
           "meta": 24586.6,
-          "metaAteOntem": 8551.86,
+          "metaAteOntem": 9620.84,
           "real": 0
         },
         {
           "uf": "TOCANTIS",
           "meta": 22817.54,
-          "metaAteOntem": 7936.54,
+          "metaAteOntem": 8928.6,
           "real": 12588.55
         },
         {
           "uf": "RIO GRANDE DO NORTE",
           "meta": 2358.57,
-          "metaAteOntem": 820.37,
+          "metaAteOntem": 922.92,
           "real": 0
         }
       ]
