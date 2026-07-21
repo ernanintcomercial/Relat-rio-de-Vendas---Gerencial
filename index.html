@@ -42,6 +42,41 @@
         }
         .update-info strong { color: #1a1a2e; }
 
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+        .toolbar input[type="text"] {
+            flex: 1 1 240px;
+            padding: 10px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            background: #fff;
+            color: #1a1a2e;
+        }
+        .toolbar input[type="text"]:focus {
+            outline: none;
+            border-color: #1d4ed8;
+            box-shadow: 0 0 0 3px rgba(29,78,216,.12);
+        }
+        .toolbar button {
+            flex: 0 0 auto;
+            padding: 10px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #fff;
+            color: #1a1a2e;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .15s;
+        }
+        .toolbar button:hover { background: #eff6ff; border-color: #93c5fd; }
+
         .card {
             background: #fff;
             border-radius: 12px;
@@ -119,8 +154,8 @@
             color: #1d4ed8;
         }
 
-        /* ESTADO row (agora também clicável, expande representantes) */
-        .row-estado td {
+        /* NÍVEL 2 (estado OU representante, dependendo do modo escolhido) */
+        .row-nivel2 td {
             padding: 10px 16px 10px 40px;
             background: #fff;
             font-size: 0.8rem;
@@ -130,15 +165,15 @@
             cursor: pointer;
             user-select: none;
         }
-        .row-estado:hover td { background: #f9fafb; }
-        .row-estado td:not(:first-child) { text-align: right; }
-        .row-estado { display: none; }
-        .row-estado.visible { display: table-row; }
-        .row-estado .arrow { width: 16px; height: 16px; font-size: 0.55rem; }
-        .row-estado.open .arrow { transform: rotate(90deg); background: #dbeafe; color: #1d4ed8; }
+        .row-nivel2:hover td { background: #f9fafb; }
+        .row-nivel2 td:not(:first-child) { text-align: right; }
+        .row-nivel2 { display: none; }
+        .row-nivel2.visible { display: table-row; }
+        .row-nivel2 .arrow { width: 16px; height: 16px; font-size: 0.55rem; }
+        .row-nivel2.open .arrow { transform: rotate(90deg); background: #dbeafe; color: #1d4ed8; }
 
-        /* REPRESENTANTE row (clicável, expande contratos) */
-        .row-representante td {
+        /* NÍVEL 3 (o outro entre estado/representante) */
+        .row-nivel3 td {
             padding: 9px 16px 9px 62px;
             background: #fbfcfd;
             font-size: 0.76rem;
@@ -148,24 +183,24 @@
             cursor: pointer;
             user-select: none;
         }
-        .row-representante:hover td { background: #f3f4f6; }
-        .row-representante td:not(:first-child) { text-align: right; }
-        .row-representante { display: none; }
-        .row-representante.visible { display: table-row; }
-        .row-representante .arrow { width: 14px; height: 14px; font-size: 0.5rem; }
-        .row-representante.open .arrow { transform: rotate(90deg); background: #dbeafe; color: #1d4ed8; }
+        .row-nivel3:hover td { background: #f3f4f6; }
+        .row-nivel3 td:not(:first-child) { text-align: right; }
+        .row-nivel3 { display: none; }
+        .row-nivel3.visible { display: table-row; }
+        .row-nivel3 .arrow { width: 14px; height: 14px; font-size: 0.5rem; }
+        .row-nivel3.open .arrow { transform: rotate(90deg); background: #dbeafe; color: #1d4ed8; }
 
-        /* CONTRATO row (nível mais fundo, não clicável) */
-        .row-contrato td {
+        /* NÍVEL 4 — contrato, sempre a folha da árvore, nunca clicável */
+        .row-nivel4 td {
             padding: 7px 16px 7px 84px;
             background: #fff;
             font-size: 0.72rem;
             color: #6b7280;
             border-bottom: 1px solid #f8fafc;
         }
-        .row-contrato td:not(:first-child) { text-align: right; }
-        .row-contrato { display: none; }
-        .row-contrato.visible { display: table-row; }
+        .row-nivel4 td:not(:first-child) { text-align: right; }
+        .row-nivel4 { display: none; }
+        .row-nivel4.visible { display: table-row; }
 
         /* BADGE % */
         .badge {
@@ -197,20 +232,21 @@
             header { gap: 8px; margin-bottom: 16px; }
             header h1 { font-size: 1.25rem; }
             .card { border-radius: 10px; }
-            .row-estado td { padding-left: 28px; }
-            .row-representante td { padding-left: 42px; }
-            .row-contrato td { padding-left: 56px; }
-            thead th, .row-brasil td, .row-regiao td, .row-estado td, .row-representante td, .row-contrato td { padding-top: 10px; padding-bottom: 10px; padding-right: 10px; }
+            .row-nivel2 td { padding-left: 28px; }
+            .row-nivel3 td { padding-left: 42px; }
+            .row-nivel4 td { padding-left: 56px; }
+            thead th, .row-brasil td, .row-regiao td, .row-nivel2 td, .row-nivel3 td, .row-nivel4 td { padding-top: 10px; padding-bottom: 10px; padding-right: 10px; }
             .arrow { width: 22px; height: 22px; }
+            .toolbar button { flex: 1 1 100%; }
         }
 
         @media (max-width: 400px) {
-            thead th, .row-brasil td, .row-regiao td, .row-estado td, .row-representante td, .row-contrato td { padding-top: 8px; padding-bottom: 8px; padding-right: 8px; font-size: 0.7rem; }
+            thead th, .row-brasil td, .row-regiao td, .row-nivel2 td, .row-nivel3 td, .row-nivel4 td { padding-top: 8px; padding-bottom: 8px; padding-right: 8px; font-size: 0.7rem; }
             .row-brasil td { font-size: 0.78rem; }
             .row-regiao td { font-size: 0.74rem; }
-            .row-estado td { font-size: 0.7rem; padding-left: 22px; }
-            .row-representante td { font-size: 0.68rem; padding-left: 34px; }
-            .row-contrato td { font-size: 0.66rem; padding-left: 46px; }
+            .row-nivel2 td { font-size: 0.7rem; padding-left: 22px; }
+            .row-nivel3 td { font-size: 0.68rem; padding-left: 34px; }
+            .row-nivel4 td { font-size: 0.66rem; padding-left: 46px; }
             .badge { padding: 2px 6px; min-width: 40px; font-size: 0.68rem; }
             table { min-width: 560px; }
             .update-info { font-size: 0.72rem; }
@@ -226,6 +262,10 @@
         </div>
         <div class="update-info" id="updateInfo"></div>
     </header>
+    <div class="toolbar">
+        <input type="text" id="busca" placeholder="Buscar representante, estado ou contrato...">
+        <button id="btnModo" onclick="alternarModo()">🔀 Ordem: Estado → Representante</button>
+    </div>
     <div class="card">
         <table>
             <thead>
@@ -253,6 +293,15 @@
     // (usuário/senha) — não publique este resumo.json sem essa proteção.
     const ARQUIVO_RESUMO = 'resumo.json';
 
+    const ORDEM_CONTRATOS = ['LED', 'PLÁSTICO', 'ALUMÍNIO', 'EX'];
+    const LABEL_MODO = {
+        'estado-representante': '🔀 Ordem: Estado → Representante',
+        'representante-estado': '🔀 Ordem: Representante → Estado',
+    };
+
+    let resumoOriginal = null;
+    let modoAtual = 'estado-representante';
+
     function fmt(v) {
         return (v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
     }
@@ -274,7 +323,14 @@
         return 'badge badge-estado';
     }
 
-    // Cada linha (região/estado/representante/contrato) tem uma "chave" tipo
+    function semAcento(s) {
+        return String(s == null ? '' : s).normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+    }
+    function normalizarTexto(s) {
+        return semAcento(s).toUpperCase().replace(/\s+/g, ' ').trim();
+    }
+
+    // Cada linha (região/nível2/nível3/contrato) tem uma "chave" tipo
     // "0", "0-2", "0-2-1", "0-2-1-3" — números separados por hífen indicando
     // o caminho na árvore. toggle() abre/fecha os filhos DIRETOS dessa chave;
     // ao fechar, fecha também tudo mais fundo (netos, bisnetos), pra não
@@ -295,113 +351,209 @@
                 el.classList.toggle('visible', abrindo);
                 if (!abrindo) el.classList.remove('open');
             } else if (!abrindo && chaveEl.startsWith(chave + '-')) {
-                // fecha tudo mais fundo também, ao colapsar
                 el.classList.remove('visible');
                 el.classList.remove('open');
             }
         });
     }
 
-    async function carregar() {
-        try {
-            const resp = await fetch(ARQUIVO_RESUMO + '?t=' + Date.now()); // evita cache velho
-            if (!resp.ok) throw new Error(`Arquivo não encontrado: ${ARQUIVO_RESUMO}`);
-            const resumo = await resp.json();
+    // ---- Construção da árvore a partir do resumo.json, na ordem escolhida ----
 
-            document.getElementById('updateInfo').innerHTML =
-                `Última atualização: <strong>${resumo.geradoEm}</strong> &nbsp;·&nbsp; ` +
-                `Dias úteis decorridos: <strong>${resumo.diasUteisDecorridos}/${resumo.diasUteisMes}</strong>`;
-            document.getElementById('thMetaParcial').textContent = `Meta até ${resumo.metaAteData}`;
-
-            const tbody = document.getElementById('tbody');
-            tbody.innerHTML = '';
-
-            // ---- BRASIL ----
-            const brasil = resumo.brasil;
-            const pBr = pct(brasil.real, brasil.metaAteOntem);
-            tbody.insertAdjacentHTML('beforeend', `
-                <tr class="row-brasil">
-                    <td>🇧🇷 BRASIL</td>
-                    <td>${fmt(brasil.meta)}</td>
-                    <td>${fmt(brasil.metaAteOntem)}</td>
-                    <td>${fmt(brasil.real)}</td>
-                    <td><span class="${badgeClass(pBr,'brasil')}">${pBr}%</span></td>
-                </tr>
-            `);
-
-            // ---- REGIÕES + ESTADOS + REPRESENTANTES + CONTRATOS ----
-            resumo.regioes.forEach((rd, ridx) => {
-                const chaveRegiao = String(ridx);
-                const pR = pct(rd.real, rd.metaAteOntem);
-
-                tbody.insertAdjacentHTML('beforeend', `
-                    <tr class="row-regiao" id="row-${chaveRegiao}" data-chave="${chaveRegiao}" onclick="toggle('${chaveRegiao}')">
-                        <td>
-                            <div class="label-cell">
-                                <span class="arrow">▶</span>
-                                ${rd.nome}
-                            </div>
-                        </td>
-                        <td>${fmt(rd.meta)}</td>
-                        <td>${fmt(rd.metaAteOntem)}</td>
-                        <td>${fmt(rd.real)}</td>
-                        <td><span class="${badgeClass(pR,'regiao')}">${pR}%</span></td>
-                    </tr>
-                `);
-
-                rd.estados.forEach((e, eidx) => {
-                    const chaveEstado = chaveRegiao + '-' + eidx;
-                    const pE = pct(e.real, e.metaAteOntem);
-                    tbody.insertAdjacentHTML('beforeend', `
-                        <tr class="row-estado" id="row-${chaveEstado}" data-chave="${chaveEstado}" onclick="event.stopPropagation(); toggle('${chaveEstado}')">
-                            <td>
-                                <div class="label-cell">
-                                    <span class="arrow">▶</span>
-                                    ${e.uf}
-                                </div>
-                            </td>
-                            <td>${fmt(e.meta)}</td>
-                            <td>${fmt(e.metaAteOntem)}</td>
-                            <td>${fmt(e.real)}</td>
-                            <td><span class="${badgeClass(pE,'estado')}">${pE}%</span></td>
-                        </tr>
-                    `);
-
-                    (e.representantes || []).forEach((p, pidx) => {
-                        const chaveRep = chaveEstado + '-' + pidx;
-                        const pP = pct(p.real, p.metaAteOntem);
-                        tbody.insertAdjacentHTML('beforeend', `
-                            <tr class="row-representante" id="row-${chaveRep}" data-chave="${chaveRep}" onclick="event.stopPropagation(); toggle('${chaveRep}')">
-                                <td>
-                                    <div class="label-cell">
-                                        <span class="arrow">▶</span>
-                                        ${p.nome}
-                                    </div>
-                                </td>
-                                <td>${fmt(p.meta)}</td>
-                                <td>${fmt(p.metaAteOntem)}</td>
-                                <td>${fmt(p.real)}</td>
-                                <td><span class="${badgeClass(pP,'estado')}">${pP}%</span></td>
-                            </tr>
-                        `);
-
-                        (p.contratos || []).forEach((c, cidx) => {
-                            const chaveContrato = chaveRep + '-' + cidx;
-                            const pC = pct(c.real, c.metaAteOntem);
-                            tbody.insertAdjacentHTML('beforeend', `
-                                <tr class="row-contrato" data-chave="${chaveContrato}">
-                                    <td>${c.contrato}</td>
-                                    <td>${fmt(c.meta)}</td>
-                                    <td>${fmt(c.metaAteOntem)}</td>
-                                    <td>${fmt(c.real)}</td>
-                                    <td><span class="badge badge-contrato">${pC}%</span></td>
-                                </tr>
-                            `);
+    function extrairFolhas(resumo) {
+        const folhas = [];
+        (resumo.regioes || []).forEach(r => {
+            (r.estados || []).forEach(e => {
+                (e.representantes || []).forEach(p => {
+                    (p.contratos || []).forEach(c => {
+                        folhas.push({
+                            grupoRegiao: r.grupo, nomeRegiao: r.nome,
+                            uf: e.uf, repId: p.repId, nomeRep: p.nome,
+                            contrato: c.contrato,
+                            meta: c.meta, metaAteOntem: c.metaAteOntem, real: c.real,
                         });
                     });
                 });
             });
+        });
+        return folhas;
+    }
 
+    function agruparOrdenado(folhas, chaveFn) {
+        const mapa = new Map();
+        const ordem = [];
+        folhas.forEach(f => {
+            const chave = chaveFn(f);
+            if (!mapa.has(chave)) { mapa.set(chave, []); ordem.push(chave); }
+            mapa.get(chave).push(f);
+        });
+        return ordem.map(chave => ({ chave, itens: mapa.get(chave) }));
+    }
+
+    function somar(itens) {
+        return itens.reduce((acc, f) => {
+            acc.meta += f.meta; acc.metaAteOntem += f.metaAteOntem; acc.real += f.real;
+            return acc;
+        }, { meta: 0, metaAteOntem: 0, real: 0 });
+    }
+
+    function construirArvore(resumo, modo) {
+        const folhas = extrairFolhas(resumo);
+        const regioesOrdem = (resumo.regioes || []).map(r => r.grupo);
+        const nomeRegiaoPorGrupo = {};
+        (resumo.regioes || []).forEach(r => { nomeRegiaoPorGrupo[r.grupo] = r.nome; });
+
+        const chaveN2 = modo === 'representante-estado' ? f => f.repId : f => f.uf;
+        const nomeN2  = modo === 'representante-estado' ? f => f.nomeRep : f => f.uf;
+        const chaveN3 = modo === 'representante-estado' ? f => f.uf : f => f.repId;
+        const nomeN3  = modo === 'representante-estado' ? f => f.uf : f => f.nomeRep;
+
+        return regioesOrdem.map(grupo => {
+            const folhasRegiao = folhas.filter(f => f.grupoRegiao === grupo);
+            const totalRegiao = somar(folhasRegiao);
+            const gruposN2 = agruparOrdenado(folhasRegiao, chaveN2)
+                .sort((a, b) => somar(b.itens).meta - somar(a.itens).meta);
+
+            return {
+                label: nomeRegiaoPorGrupo[grupo], ...totalRegiao,
+                filhos: gruposN2.map(g2 => {
+                    const totalN2 = somar(g2.itens);
+                    const gruposN3 = agruparOrdenado(g2.itens, chaveN3)
+                        .sort((a, b) => somar(b.itens).meta - somar(a.itens).meta);
+                    return {
+                        label: nomeN2(g2.itens[0]), ...totalN2,
+                        filhos: gruposN3.map(g3 => {
+                            const totalN3 = somar(g3.itens);
+                            const contratosOrdenados = [...g3.itens].sort((a, b) => {
+                                const ia = ORDEM_CONTRATOS.indexOf(a.contrato);
+                                const ib = ORDEM_CONTRATOS.indexOf(b.contrato);
+                                return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+                            });
+                            return {
+                                label: nomeN3(g3.itens[0]), ...totalN3,
+                                filhos: contratosOrdenados.map(f => ({
+                                    label: f.contrato,
+                                    meta: f.meta, metaAteOntem: f.metaAteOntem, real: f.real,
+                                    filhos: [],
+                                })),
+                            };
+                        }),
+                    };
+                }),
+            };
+        });
+    }
+
+    // ---- Filtro de busca: mantém um nó se ele OU algum descendente bate ----
+
+    function noBate(no, queryNorm) {
+        return normalizarTexto(no.label).includes(queryNorm);
+    }
+
+    function filtrarNo(no, queryNorm) {
+        if (noBate(no, queryNorm)) return no; // mantém inteiro (com todos os filhos originais)
+        if (!no.filhos || !no.filhos.length) return null;
+        const filhosFiltrados = no.filhos.map(f => filtrarNo(f, queryNorm)).filter(Boolean);
+        if (!filhosFiltrados.length) return null;
+        return { ...no, filhos: filhosFiltrados };
+    }
+
+    function filtrarArvore(nos, queryNorm) {
+        return nos.map(n => filtrarNo(n, queryNorm)).filter(Boolean);
+    }
+
+    // ---- Renderização ----
+
+    function renderizarNos(nos, chavePai, profundidade, tbody, forcarAberto) {
+        nos.forEach((no, idx) => {
+            const chave = chavePai === null ? String(idx) : chavePai + '-' + idx;
+            const clicavel = profundidade < 4;
+            const classeLinha = profundidade === 1 ? 'row-regiao'
+                : profundidade === 2 ? 'row-nivel2'
+                : profundidade === 3 ? 'row-nivel3' : 'row-nivel4';
+            const p = pct(no.real, no.metaAteOntem);
+            const classeBadge = profundidade === 1 ? badgeClass(p, 'regiao')
+                : profundidade === 4 ? 'badge badge-contrato' : badgeClass(p, 'estado');
+            const classesExtra = forcarAberto ? (profundidade > 1 ? ' visible open' : ' open') : '';
+            const dataChave = profundidade > 1 ? ` data-chave="${chave}"` : '';
+            const onclick = clicavel
+                ? ` onclick="${profundidade > 1 ? 'event.stopPropagation(); ' : ''}toggle('${chave}')"`
+                : '';
+            const conteudoLabel = clicavel
+                ? `<div class="label-cell"><span class="arrow">▶</span>${no.label}</div>`
+                : no.label;
+
+            tbody.insertAdjacentHTML('beforeend', `
+                <tr class="${classeLinha}${classesExtra}" id="row-${chave}"${dataChave}${onclick}>
+                    <td>${conteudoLabel}</td>
+                    <td>${fmt(no.meta)}</td>
+                    <td>${fmt(no.metaAteOntem)}</td>
+                    <td>${fmt(no.real)}</td>
+                    <td><span class="${classeBadge}">${p}%</span></td>
+                </tr>
+            `);
+
+            if (no.filhos && no.filhos.length) {
+                renderizarNos(no.filhos, chave, profundidade + 1, tbody, forcarAberto);
+            }
+        });
+    }
+
+    function atualizarTabela() {
+        if (!resumoOriginal) return;
+        const tbody = document.getElementById('tbody');
+        tbody.innerHTML = '';
+
+        // ---- BRASIL (sempre visível, não é afetado por busca/ordem) ----
+        const brasil = resumoOriginal.brasil;
+        const pBr = pct(brasil.real, brasil.metaAteOntem);
+        tbody.insertAdjacentHTML('beforeend', `
+            <tr class="row-brasil">
+                <td>🇧🇷 BRASIL</td>
+                <td>${fmt(brasil.meta)}</td>
+                <td>${fmt(brasil.metaAteOntem)}</td>
+                <td>${fmt(brasil.real)}</td>
+                <td><span class="${badgeClass(pBr,'brasil')}">${pBr}%</span></td>
+            </tr>
+        `);
+
+        const arvore = construirArvore(resumoOriginal, modoAtual);
+        const termo = normalizarTexto(document.getElementById('busca').value);
+
+        if (!termo) {
+            renderizarNos(arvore, null, 1, tbody, false);
+            return;
+        }
+
+        const arvoreFiltrada = filtrarArvore(arvore, termo);
+        if (!arvoreFiltrada.length) {
+            tbody.insertAdjacentHTML('beforeend', `
+                <tr><td colspan="5" class="loading">Nenhum resultado para "${document.getElementById('busca').value}"</td></tr>
+            `);
+            return;
+        }
+        renderizarNos(arvoreFiltrada, null, 1, tbody, true);
+    }
+
+    function alternarModo() {
+        modoAtual = modoAtual === 'estado-representante' ? 'representante-estado' : 'estado-representante';
+        document.getElementById('btnModo').textContent = LABEL_MODO[modoAtual];
+        atualizarTabela();
+    }
+
+    document.getElementById('busca').addEventListener('input', atualizarTabela);
+
+    async function carregar() {
+        try {
+            const resp = await fetch(ARQUIVO_RESUMO + '?t=' + Date.now()); // evita cache velho
+            if (!resp.ok) throw new Error(`Arquivo não encontrado: ${ARQUIVO_RESUMO}`);
+            resumoOriginal = await resp.json();
+
+            document.getElementById('updateInfo').innerHTML =
+                `Última atualização: <strong>${resumoOriginal.geradoEm}</strong> &nbsp;·&nbsp; ` +
+                `Dias úteis decorridos: <strong>${resumoOriginal.diasUteisDecorridos}/${resumoOriginal.diasUteisMes}</strong>`;
+            document.getElementById('thMetaParcial').textContent = `Meta até ${resumoOriginal.metaAteData}`;
+
+            atualizarTabela();
         } catch (err) {
             console.error(err);
             document.getElementById('tbody').innerHTML =
