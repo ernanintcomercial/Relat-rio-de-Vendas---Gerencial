@@ -4,9 +4,9 @@
   "diasUteisMes": 23,
   "diasUteisDecorridos": 18,
   "brasil": {
-    "meta": 10278068.51,
-    "metaAteOntem": 8043705.79,
-    "real": 6925175.49
+    "meta": 10278645.83,
+    "metaAteOntem": 8044157.6,
+    "real": 6786581.57
   },
   "regioes": [
     {
@@ -14,20 +14,20 @@
       "nome": "🗺️ Sul e Centro Oeste",
       "meta": 4046189.56,
       "metaAteOntem": 3166583.14,
-      "real": 3448005.94,
+      "real": 3389200.05,
       "estados": [
         {
           "uf": "SANTA CATARINA",
           "meta": 1759842.67,
           "metaAteOntem": 1377268.18,
-          "real": 1547061.42,
+          "real": 1536049.96,
           "representantes": [
             {
               "repId": 9795,
               "nome": "RJS REPRESENTACAO COMERCIAL LTDA ME",
               "meta": 755287.19,
               "metaAteOntem": 591094.32,
-              "real": 510059.2,
+              "real": 499047.74,
               "contratos": [
                 {
                   "contrato": "LED",
@@ -39,7 +39,7 @@
                   "contrato": "PLÁSTICO",
                   "meta": 276015.02,
                   "metaAteOntem": 216011.75,
-                  "real": 200981.04
+                  "real": 189969.58
                 },
                 {
                   "contrato": "ALUMÍNIO",
@@ -255,7 +255,7 @@
           "uf": "RIO GRANDE DO SUL",
           "meta": 622720.93,
           "metaAteOntem": 487346.81,
-          "real": 884585.78,
+          "real": 865024.08,
           "representantes": [
             {
               "repId": 9885,
@@ -325,7 +325,7 @@
               "nome": "PATRICIA MENDES DE FREITAS",
               "meta": 71157.74,
               "metaAteOntem": 55688.67,
-              "real": 39771.09,
+              "real": 20209.39,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
@@ -337,7 +337,7 @@
                   "contrato": "ALUMÍNIO",
                   "meta": 23005.13,
                   "metaAteOntem": 18004.01,
-                  "real": 37344.13
+                  "real": 17782.43
                 }
               ]
             },
@@ -389,7 +389,7 @@
           "uf": "PARANA",
           "meta": 461729.36,
           "metaAteOntem": 361353.41,
-          "real": 521840.94,
+          "real": 509476.37,
           "representantes": [
             {
               "repId": 9893,
@@ -429,7 +429,7 @@
               "nome": "CAYMARK REPRESENTACOES COMERCIAIS LTDA",
               "meta": 64186.92,
               "metaAteOntem": 50233.24,
-              "real": 409011.55,
+              "real": 396646.98,
               "contratos": [
                 {
                   "contrato": "LED",
@@ -453,7 +453,7 @@
                   "contrato": "EX",
                   "meta": 64186.92,
                   "metaAteOntem": 50233.24,
-                  "real": 51466.66
+                  "real": 39102.09
                 }
               ]
             },
@@ -499,14 +499,14 @@
           "uf": "GOIAS",
           "meta": 228411.2,
           "metaAteOntem": 178756.59,
-          "real": 235381,
+          "real": 219512.84,
           "representantes": [
             {
               "repId": 9939,
               "nome": "RICARDO DE CASTRO",
               "meta": 228411.2,
               "metaAteOntem": 178756.59,
-              "real": 165119.9,
+              "real": 161159.26,
               "contratos": [
                 {
                   "contrato": "LED",
@@ -518,7 +518,7 @@
                   "contrato": "PLÁSTICO",
                   "meta": 43775.15,
                   "metaAteOntem": 34258.81,
-                  "real": 40919.16
+                  "real": 36958.52
                 },
                 {
                   "contrato": "ALUMÍNIO",
@@ -533,14 +533,8 @@
               "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 70261.1,
+              "real": 58353.58,
               "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 11907.52
-                },
                 {
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
@@ -698,14 +692,14 @@
     {
       "grupo": "SUDESTE",
       "nome": "🗺️ Sudeste",
-      "meta": 4613950.67,
-      "metaAteOntem": 3610917.92,
-      "real": 2923072.94,
+      "meta": 4614527.99,
+      "metaAteOntem": 3611369.73,
+      "real": 2919589.84,
       "estados": [
         {
           "uf": "SAO PAULO",
-          "meta": 3422451.62,
-          "metaAteOntem": 2678440.4,
+          "meta": 3423028.94,
+          "metaAteOntem": 2678892.21,
           "real": 1957399.9,
           "representantes": [
             {
@@ -867,8 +861,8 @@
             {
               "repId": 9886,
               "nome": "PRATICA REPRESENTACOES COMERCIAIS LTDA",
-              "meta": 155186.54,
-              "metaAteOntem": 121450.33,
+              "meta": 155763.85,
+              "metaAteOntem": 121902.14,
               "real": 78042.13,
               "contratos": [
                 {
@@ -885,8 +879,8 @@
                 },
                 {
                   "contrato": "ALUMÍNIO",
-                  "meta": 129606.03,
-                  "metaAteOntem": 101430.81,
+                  "meta": 130183.35,
+                  "metaAteOntem": 101882.62,
                   "real": 71423
                 },
                 {
@@ -1062,7 +1056,7 @@
           "uf": "MINAS GERAIS",
           "meta": 559196.87,
           "metaAteOntem": 437632.33,
-          "real": 485894.55,
+          "real": 482836.04,
           "representantes": [
             {
               "repId": 9640,
@@ -1138,13 +1132,13 @@
               "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 46164.37,
+              "real": 43105.86,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 22630.91
+                  "real": 19572.4
                 },
                 {
                   "contrato": "ALUMÍNIO",
@@ -1300,7 +1294,7 @@
           "uf": "ESPIRITO SANTO",
           "meta": 229457.37,
           "metaAteOntem": 179575.33,
-          "real": 136889.82,
+          "real": 136465.23,
           "representantes": [
             {
               "repId": 9680,
@@ -1334,7 +1328,7 @@
               "nome": "PRATICA REPRESENTACOES COMERCIAIS LTDA",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 28054.14,
+              "real": 27629.55,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
@@ -1346,7 +1340,7 @@
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 24321.49
+                  "real": 23896.9
                 }
               ]
             },
@@ -1535,7 +1529,7 @@
       "nome": "🗺️ Norte e Nordeste",
       "meta": 1617928.28,
       "metaAteOntem": 1266204.74,
-      "real": 554096.61,
+      "real": 477791.68,
       "estados": [
         {
           "uf": "BAHIA",
@@ -1722,26 +1716,26 @@
           "uf": "CEARA",
           "meta": 191657.6,
           "metaAteOntem": 149992.9,
-          "real": 157959.25,
+          "real": 81654.32,
           "representantes": [
             {
               "repId": 9957,
               "nome": "JOAQUIM MENDES REPRESENTAÇÕES",
               "meta": 191657.6,
               "metaAteOntem": 149992.9,
-              "real": 157959.25,
+              "real": 81654.32,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 126879.2,
                   "metaAteOntem": 99296.77,
-                  "real": 35757.9
+                  "real": 18639.34
                 },
                 {
                   "contrato": "ALUMÍNIO",
                   "meta": 64778.4,
                   "metaAteOntem": 50696.14,
-                  "real": 122201.35
+                  "real": 63014.98
                 }
               ]
             }
