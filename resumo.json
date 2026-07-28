@@ -6,7 +6,7 @@
   "brasil": {
     "meta": 12162536.3,
     "metaAteOntem": 10047312.6,
-    "real": 7580743.92
+    "real": 7343376.28
   },
   "regioes": [
     {
@@ -14,20 +14,20 @@
       "nome": "🗺️ Sul e Centro Oeste",
       "meta": 4735794.28,
       "metaAteOntem": 3912177.88,
-      "real": 3796375.99,
+      "real": 3638796.38,
       "estados": [
         {
           "uf": "SANTA CATARINA",
-          "meta": 1760754.63,
-          "metaAteOntem": 1454536.44,
-          "real": 1605371.37,
+          "meta": 1765021.63,
+          "metaAteOntem": 1458061.35,
+          "real": 1594359.91,
           "representantes": [
             {
               "repId": 9795,
               "nome": "RJS REPRESENTACAO COMERCIAL LTDA ME",
               "meta": 755287.19,
               "metaAteOntem": 623932.9,
-              "real": 549087.22,
+              "real": 538075.76,
               "contratos": [
                 {
                   "contrato": "LED",
@@ -39,7 +39,7 @@
                   "contrato": "PLÁSTICO",
                   "meta": 276015.02,
                   "metaAteOntem": 228012.41,
-                  "real": 212681.7
+                  "real": 201670.24
                 },
                 {
                   "contrato": "ALUMÍNIO",
@@ -79,14 +79,14 @@
             {
               "repId": 9520,
               "nome": "CAYMARK REPRESENTACOES COMERCIAIS LTDA",
-              "meta": 283015.51,
-              "metaAteOntem": 233795.42,
+              "meta": 287282.5,
+              "metaAteOntem": 237320.33,
               "real": 160349.37,
               "contratos": [
                 {
                   "contrato": "LED",
-                  "meta": 8252.69,
-                  "metaAteOntem": 6817.44,
+                  "meta": 12519.68,
+                  "metaAteOntem": 10342.35,
                   "real": 4760.59
                 },
                 {
@@ -218,21 +218,21 @@
         },
         {
           "uf": "PARANA",
-          "meta": 1163624.65,
-          "metaAteOntem": 961255.14,
-          "real": 559187.92,
+          "meta": 1170735.72,
+          "metaAteOntem": 967129.51,
+          "real": 546823.35,
           "representantes": [
             {
               "repId": 9520,
               "nome": "CAYMARK REPRESENTACOES COMERCIAIS LTDA",
-              "meta": 708339.28,
-              "metaAteOntem": 585149.84,
-              "real": 440714.74,
+              "meta": 715450.36,
+              "metaAteOntem": 591024.21,
+              "real": 428350.17,
               "contratos": [
                 {
                   "contrato": "LED",
-                  "meta": 13753.34,
-                  "metaAteOntem": 11361.45,
+                  "meta": 20864.41,
+                  "metaAteOntem": 17235.82,
                   "real": 7933.66
                 },
                 {
@@ -251,7 +251,7 @@
                   "contrato": "EX",
                   "meta": 64186.92,
                   "metaAteOntem": 53023.98,
-                  "real": 51466.66
+                  "real": 39102.09
                 }
               ]
             },
@@ -371,7 +371,7 @@
           "uf": "RIO GRANDE DO SUL",
           "meta": 622720.93,
           "metaAteOntem": 514421.64,
-          "real": 916271.73,
+          "real": 869880.09,
           "representantes": [
             {
               "repId": 9885,
@@ -441,7 +441,7 @@
               "nome": "PATRICIA MENDES DE FREITAS",
               "meta": 71157.74,
               "metaAteOntem": 58782.48,
-              "real": 39771.09,
+              "real": 20209.39,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
@@ -453,7 +453,7 @@
                   "contrato": "ALUMÍNIO",
                   "meta": 23005.13,
                   "metaAteOntem": 19004.24,
-                  "real": 37344.13
+                  "real": 17782.43
                 }
               ]
             },
@@ -462,13 +462,13 @@
               "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 120164.91,
+              "real": 93334.97,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 49992.27
+                  "real": 23162.33
                 },
                 {
                   "contrato": "ALUMÍNIO",
@@ -503,8 +503,8 @@
         },
         {
           "uf": "MATO GROSSO DO SUL",
-          "meta": 230567.99,
-          "metaAteOntem": 190469.21,
+          "meta": 231317.58,
+          "metaAteOntem": 191088.43,
           "real": 185316.8,
           "representantes": [
             {
@@ -531,14 +531,14 @@
             {
               "repId": 9939,
               "nome": "RICARDO DE CASTRO",
-              "meta": 100500.54,
-              "metaAteOntem": 83022.19,
+              "meta": 101250.13,
+              "metaAteOntem": 83641.41,
               "real": 141272.43,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
-                  "meta": 8998.56,
-                  "metaAteOntem": 7433.59,
+                  "meta": 9748.14,
+                  "metaAteOntem": 8052.81,
                   "real": 10587.97
                 },
                 {
@@ -568,16 +568,16 @@
         },
         {
           "uf": "GOIAS",
-          "meta": 127910.66,
-          "metaAteOntem": 105665.32,
-          "real": 290663.3,
+          "meta": 127161.07,
+          "metaAteOntem": 105046.1,
+          "real": 216441.56,
           "representantes": [
             {
               "repId": 9939,
               "nome": "RICARDO DE CASTRO",
-              "meta": 127910.66,
-              "metaAteOntem": 105665.32,
-              "real": 165119.9,
+              "meta": 127161.07,
+              "metaAteOntem": 105046.1,
+              "real": 161159.26,
               "contratos": [
                 {
                   "contrato": "LED",
@@ -587,9 +587,9 @@
                 },
                 {
                   "contrato": "PLÁSTICO",
-                  "meta": 34776.59,
-                  "metaAteOntem": 28728.49,
-                  "real": 40919.16
+                  "meta": 34027.01,
+                  "metaAteOntem": 28109.27,
+                  "real": 36958.52
                 },
                 {
                   "contrato": "ALUMÍNIO",
@@ -604,19 +604,13 @@
               "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 125543.4,
+              "real": 55282.3,
               "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 11907.52
-                },
                 {
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 113635.88
+                  "real": 55282.3
                 }
               ]
             }
@@ -653,22 +647,22 @@
         },
         {
           "uf": "SAO PAULO",
-          "meta": 47118.38,
-          "metaAteOntem": 38923.88,
-          "real": 27180.4,
+          "meta": 35740.31,
+          "metaAteOntem": 29524.6,
+          "real": 13590.2,
           "representantes": [
             {
               "repId": 9520,
               "nome": "CAYMARK REPRESENTACOES COMERCIAIS LTDA",
-              "meta": 47118.38,
-              "metaAteOntem": 38923.88,
-              "real": 27180.4,
+              "meta": 35740.31,
+              "metaAteOntem": 29524.6,
+              "real": 13590.2,
               "contratos": [
                 {
                   "contrato": "LED",
-                  "meta": 47118.38,
-                  "metaAteOntem": 38923.88,
-                  "real": 27180.4
+                  "meta": 35740.31,
+                  "metaAteOntem": 29524.6,
+                  "real": 13590.2
                 }
               ]
             }
@@ -727,12 +721,12 @@
       "nome": "🗺️ Sudeste",
       "meta": 5771640.88,
       "metaAteOntem": 4767877.25,
-      "real": 3070736.12,
+      "real": 3067253.02,
       "estados": [
         {
           "uf": "SAO PAULO",
-          "meta": 3383800.93,
-          "metaAteOntem": 2795313.81,
+          "meta": 3384314.69,
+          "metaAteOntem": 2795738.22,
           "real": 2023636.54,
           "representantes": [
             {
@@ -888,8 +882,8 @@
             {
               "repId": 9886,
               "nome": "PRATICA REPRESENTACOES COMERCIAIS LTDA",
-              "meta": 158876.69,
-              "metaAteOntem": 131245.96,
+              "meta": 159390.45,
+              "metaAteOntem": 131670.37,
               "real": 92171.78,
               "contratos": [
                 {
@@ -906,8 +900,8 @@
                 },
                 {
                   "contrato": "ALUMÍNIO",
-                  "meta": 133853.38,
-                  "metaAteOntem": 110574.53,
+                  "meta": 134367.14,
+                  "metaAteOntem": 110998.94,
                   "real": 85552.65
                 },
                 {
@@ -1083,7 +1077,7 @@
           "uf": "MINAS GERAIS",
           "meta": 821239.72,
           "metaAteOntem": 678415.42,
-          "real": 522405.99,
+          "real": 519347.48,
           "representantes": [
             {
               "repId": 9640,
@@ -1180,13 +1174,13 @@
               "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 49598.75,
+              "real": 46540.24,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 26065.29
+                  "real": 23006.78
                 },
                 {
                   "contrato": "ALUMÍNIO",
@@ -1325,9 +1319,9 @@
         },
         {
           "uf": "ESPIRITO SANTO",
-          "meta": 571763.72,
-          "metaAteOntem": 472326.55,
-          "real": 175134.16,
+          "meta": 571249.96,
+          "metaAteOntem": 471902.14,
+          "real": 174709.57,
           "representantes": [
             {
               "repId": 4803,
@@ -1380,9 +1374,9 @@
             {
               "repId": 9886,
               "nome": "PRATICA REPRESENTACOES COMERCIAIS LTDA",
-              "meta": 47071.29,
-              "metaAteOntem": 38884.98,
-              "real": 29831.6,
+              "meta": 46557.53,
+              "metaAteOntem": 38460.57,
+              "real": 29407.01,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
@@ -1392,9 +1386,9 @@
                 },
                 {
                   "contrato": "ALUMÍNIO",
-                  "meta": 39887.06,
-                  "metaAteOntem": 32950.18,
-                  "real": 25493.89
+                  "meta": 39373.3,
+                  "metaAteOntem": 32525.77,
+                  "real": 25069.3
                 }
               ]
             },
@@ -1577,7 +1571,7 @@
       "nome": "🗺️ Norte e Nordeste",
       "meta": 1655101.14,
       "metaAteOntem": 1367257.46,
-      "real": 713631.81,
+      "real": 637326.88,
       "estados": [
         {
           "uf": "BAHIA",
@@ -1779,26 +1773,26 @@
           "uf": "CEARA",
           "meta": 191657.6,
           "metaAteOntem": 158325.84,
-          "real": 243514.46,
+          "real": 167209.53,
           "representantes": [
             {
               "repId": 9957,
               "nome": "JOAQUIM MENDES REPRESENTAÇÕES",
               "meta": 191657.6,
               "metaAteOntem": 158325.84,
-              "real": 243514.46,
+              "real": 167209.53,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 126879.2,
                   "metaAteOntem": 104813.25,
-                  "real": 71484.87
+                  "real": 54366.31
                 },
                 {
                   "contrato": "ALUMÍNIO",
                   "meta": 64778.4,
                   "metaAteOntem": 53512.59,
-                  "real": 172029.59
+                  "real": 112843.22
                 }
               ]
             }
