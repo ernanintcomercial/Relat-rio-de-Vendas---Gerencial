@@ -1,12 +1,12 @@
 {
-  "geradoEm": "24/08/2026",
-  "metaAteData": "23/08/2026",
+  "geradoEm": "25/08/2026",
+  "metaAteData": "24/08/2026",
   "diasUteisMes": 21,
-  "diasUteisDecorridos": 15,
+  "diasUteisDecorridos": 16,
   "brasil": {
     "meta": 0,
     "metaAteOntem": 0,
-    "real": 5691850.23
+    "real": 5977613.44
   },
   "regioes": [
     {
@@ -14,13 +14,13 @@
       "nome": "🗺️ Sul e Centro Oeste",
       "meta": 0,
       "metaAteOntem": 0,
-      "real": 2377942.74,
+      "real": 2445817.07,
       "estados": [
         {
           "uf": "RIO GRANDE DO SUL",
           "meta": 0,
           "metaAteOntem": 0,
-          "real": 495068.21,
+          "real": 510078.21,
           "representantes": [
             {
               "repId": 9916,
@@ -44,44 +44,44 @@
               ]
             },
             {
-              "repId": 9885,
-              "nome": "FOTOLUMEN COM E REPRESENTACAO LTDA ME",
+              "repId": 9915,
+              "nome": "JEITO URBANO CONFECCOES LTDA",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 82306.91,
+              "real": 32404.69,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 43324.82
+                  "real": 17745.04
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 14659.65
+                }
+              ]
+            },
+            {
+              "repId": 9885,
+              "nome": "FOTOLUMEN COM E REPRESENTACAO LTDA ME",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 91816.17,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 52834.08
                 },
                 {
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
                   "real": 38982.09
-                }
-              ]
-            },
-            {
-              "repId": 9915,
-              "nome": "JEITO URBANO CONFECCOES LTDA",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 30761.44,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 15961.01
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 14800.43
                 }
               ]
             },
@@ -111,7 +111,7 @@
               "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 11069.44,
+              "real": 14926.93,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
@@ -123,7 +123,7 @@
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 4270.87
+                  "real": 8128.36
                 }
               ]
             },
@@ -145,10 +145,183 @@
           ]
         },
         {
+          "uf": "SANTA CATARINA",
+          "meta": 0,
+          "metaAteOntem": 0,
+          "real": 936432.07,
+          "representantes": [
+            {
+              "repId": 9520,
+              "nome": "CAYMARK REPRESENTACOES COMERCIAIS LTDA",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 145047.97,
+              "contratos": [
+                {
+                  "contrato": "LED",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 5517.31
+                },
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 16173.01
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 123357.65
+                }
+              ]
+            },
+            {
+              "repId": 15,
+              "nome": "WETZEL S/A - ELETROTECNICA",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 2667.4,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 89.8
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 2577.6
+                }
+              ]
+            },
+            {
+              "repId": 9960,
+              "nome": "J. J. SCHMIDT REPRESENTACOES LTDA",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 252778.77,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 35237.44
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 217541.33
+                }
+              ]
+            },
+            {
+              "repId": 9945,
+              "nome": "VENDAS TÉCNICAS",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 40430,
+              "contratos": [
+                {
+                  "contrato": "LED",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 31752.93
+                },
+                {
+                  "contrato": "EX",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 8677.07
+                }
+              ]
+            },
+            {
+              "repId": 9795,
+              "nome": "RJS REPRESENTACAO COMERCIAL LTDA ME",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 379951.48,
+              "contratos": [
+                {
+                  "contrato": "LED",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 48622.75
+                },
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 253521.12
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 77340.94
+                },
+                {
+                  "contrato": "EX",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 466.67
+                }
+              ]
+            },
+            {
+              "repId": 9080,
+              "nome": "F1 REPRESENTACOES COMERCIAIS LTDA",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 65108.96,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 3762.44
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 61346.52
+                }
+              ]
+            },
+            {
+              "repId": 9958,
+              "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 50447.49,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 1947.52
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 48499.97
+                }
+              ]
+            }
+          ]
+        },
+        {
           "uf": "PARANA",
           "meta": 0,
           "metaAteOntem": 0,
-          "real": 595617.56,
+          "real": 620317.1,
           "representantes": [
             {
               "repId": 9520,
@@ -209,7 +382,7 @@
               "nome": "SANTOS & CORREA REPRESENTACOES COM LTDA",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 168664.83,
+              "real": 193364.37,
               "contratos": [
                 {
                   "contrato": "LED",
@@ -221,13 +394,13 @@
                   "contrato": "PLÁSTICO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 18003.35
+                  "real": 21110.94
                 },
                 {
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 147346.93
+                  "real": 168938.88
                 }
               ]
             },
@@ -270,179 +443,6 @@
           ]
         },
         {
-          "uf": "SANTA CATARINA",
-          "meta": 0,
-          "metaAteOntem": 0,
-          "real": 918821.92,
-          "representantes": [
-            {
-              "repId": 9520,
-              "nome": "CAYMARK REPRESENTACOES COMERCIAIS LTDA",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 141345.25,
-              "contratos": [
-                {
-                  "contrato": "LED",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 5517.31
-                },
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 16066.75
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 119761.19
-                }
-              ]
-            },
-            {
-              "repId": 9960,
-              "nome": "J. J. SCHMIDT REPRESENTACOES LTDA",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 252778.77,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 35237.44
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 217541.33
-                }
-              ]
-            },
-            {
-              "repId": 15,
-              "nome": "WETZEL S/A - ELETROTECNICA",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 2667.4,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 89.8
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 2577.6
-                }
-              ]
-            },
-            {
-              "repId": 9945,
-              "nome": "VENDAS TÉCNICAS",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 40430,
-              "contratos": [
-                {
-                  "contrato": "LED",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 31752.93
-                },
-                {
-                  "contrato": "EX",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 8677.07
-                }
-              ]
-            },
-            {
-              "repId": 9795,
-              "nome": "RJS REPRESENTACAO COMERCIAL LTDA ME",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 366044.05,
-              "contratos": [
-                {
-                  "contrato": "LED",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 48622.75
-                },
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 243015.6
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 74008.96
-                },
-                {
-                  "contrato": "EX",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 396.74
-                }
-              ]
-            },
-            {
-              "repId": 9080,
-              "nome": "F1 REPRESENTACOES COMERCIAIS LTDA",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 65108.96,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 3762.44
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 61346.52
-                }
-              ]
-            },
-            {
-              "repId": 9958,
-              "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 50447.49,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 1947.52
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 48499.97
-                }
-              ]
-            }
-          ]
-        },
-        {
           "uf": "MATO GROSSO DO SUL",
           "meta": 0,
           "metaAteOntem": 0,
@@ -469,20 +469,20 @@
           "uf": "GOIAS",
           "meta": 0,
           "metaAteOntem": 0,
-          "real": 109604.14,
+          "real": 118041.13,
           "representantes": [
             {
               "repId": 9939,
               "nome": "RICARDO DE CASTRO",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 102864.23,
+              "real": 111301.22,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 14500.61
+                  "real": 22937.6
                 },
                 {
                   "contrato": "ALUMÍNIO",
@@ -536,7 +536,7 @@
           "uf": "MATO GROSSO",
           "meta": 0,
           "metaAteOntem": 0,
-          "real": 119424.72,
+          "real": 121542.37,
           "representantes": [
             {
               "repId": 9958,
@@ -558,7 +558,7 @@
               "nome": "REPAN REPRESENTACOES LTDA",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 116054.61,
+              "real": 118172.26,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
@@ -570,7 +570,7 @@
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 78940.45
+                  "real": 81058.1
                 }
               ]
             }
@@ -629,38 +629,38 @@
       "nome": "🗺️ Sudeste",
       "meta": 0,
       "metaAteOntem": 0,
-      "real": 2589188.46,
+      "real": 2718039.81,
       "estados": [
         {
           "uf": "ESPIRITO SANTO",
           "meta": 0,
           "metaAteOntem": 0,
-          "real": 220640.36,
+          "real": 255824.4,
           "representantes": [
             {
               "repId": 9680,
               "nome": "CAMPOS & CAMARA REPRESENTACOES LTDA ME",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 119957.81,
+              "real": 155141.85,
               "contratos": [
                 {
                   "contrato": "LED",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 1020.47
+                  "real": 17393.69
                 },
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 41259.25
+                  "real": 43905.96
                 },
                 {
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 77678.09
+                  "real": 93842.2
                 }
               ]
             },
@@ -748,7 +748,7 @@
           "uf": "SAO PAULO",
           "meta": 0,
           "metaAteOntem": 0,
-          "real": 1612248.8,
+          "real": 1623239.86,
           "representantes": [
             {
               "repId": 9963,
@@ -768,27 +768,6 @@
                   "meta": 0,
                   "metaAteOntem": 0,
                   "real": 146081.37
-                }
-              ]
-            },
-            {
-              "repId": 9907,
-              "nome": "TRATTO REPRESENTACOES E NEGOCIOS LTDA",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 31608.33,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 14205.14
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 17403.19
                 }
               ]
             },
@@ -814,6 +793,27 @@
               ]
             },
             {
+              "repId": 9907,
+              "nome": "TRATTO REPRESENTACOES E NEGOCIOS LTDA",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 33633.58,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 14205.14
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 19428.44
+                }
+              ]
+            },
+            {
               "repId": 7097,
               "nome": "CRUZ REPRESENTACOES COMERCIAIS LTDA",
               "meta": 0,
@@ -835,27 +835,6 @@
               ]
             },
             {
-              "repId": 4803,
-              "nome": "WALTER MARTINELLI",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 332380.02,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 1412.1
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 330967.92
-                }
-              ]
-            },
-            {
               "repId": 9883,
               "nome": "CGK P. REPRESENTACAO COMERCIAL LTDA",
               "meta": 0,
@@ -873,6 +852,27 @@
                   "meta": 0,
                   "metaAteOntem": 0,
                   "real": 539802.01
+                }
+              ]
+            },
+            {
+              "repId": 4803,
+              "nome": "WALTER MARTINELLI",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 341345.83,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 1412.1
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 339933.73
                 }
               ]
             },
@@ -1002,14 +1002,29 @@
           "uf": "MINAS GERAIS",
           "meta": 0,
           "metaAteOntem": 0,
-          "real": 321770.05,
+          "real": 395890.18,
           "representantes": [
+            {
+              "repId": 8005,
+              "nome": "RAPOSO REPRESENTACOES LTDA",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 11492.6,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 11492.6
+                }
+              ]
+            },
             {
               "repId": 9958,
               "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 136156.22,
+              "real": 144431.45,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
@@ -1021,7 +1036,7 @@
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 106023.88
+                  "real": 114299.11
                 }
               ]
             },
@@ -1047,26 +1062,11 @@
               ]
             },
             {
-              "repId": 8005,
-              "nome": "RAPOSO REPRESENTACOES LTDA",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 11492.6,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 11492.6
-                }
-              ]
-            },
-            {
               "repId": 9860,
               "nome": "LANJO REPRESENTACOES LTDA",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 94260.34,
+              "real": 104282.99,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
@@ -1078,7 +1078,7 @@
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 87085.05
+                  "real": 97107.7
                 }
               ]
             },
@@ -1087,19 +1087,19 @@
               "nome": "CLOVIS NEUMANN MARTINS REPRESENTACOES",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 49847.06,
+              "real": 105669.31,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 9486.31
+                  "real": 24391.92
                 },
                 {
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 40360.75
+                  "real": 81277.39
                 }
               ]
             }
@@ -1109,14 +1109,14 @@
           "uf": "RIO DE JANEIRO",
           "meta": 0,
           "metaAteOntem": 0,
-          "real": 426437.18,
+          "real": 434993.3,
           "representantes": [
             {
               "repId": 9820,
               "nome": "AZEREDO REPRESENTACOES LTDA",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 260380.94,
+              "real": 268560.59,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
@@ -1128,7 +1128,7 @@
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 249586.45
+                  "real": 257766.1
                 }
               ]
             },
@@ -1175,6 +1175,27 @@
               ]
             },
             {
+              "repId": 4803,
+              "nome": "WALTER MARTINELLI",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 133087.07,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 4339.23
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 128747.84
+                }
+              ]
+            },
+            {
               "repId": 9961,
               "nome": "P. L. MOREIRA REPRESENTACOES COMERCIAIS LTDA",
               "meta": 0,
@@ -1186,27 +1207,6 @@
                   "meta": 0,
                   "metaAteOntem": 0,
                   "real": 4434.57
-                }
-              ]
-            },
-            {
-              "repId": 4803,
-              "nome": "WALTER MARTINELLI",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 132710.6,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 3962.76
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 128747.84
                 }
               ]
             }
@@ -1271,7 +1271,7 @@
       "nome": "🗺️ Norte e Nordeste",
       "meta": 0,
       "metaAteOntem": 0,
-      "real": 724719.03,
+      "real": 813756.56,
       "estados": [
         {
           "uf": "BAHIA",
@@ -1279,6 +1279,21 @@
           "metaAteOntem": 0,
           "real": 177637.44,
           "representantes": [
+            {
+              "repId": 9894,
+              "nome": "J. F. REPRESENTACOES LTDA",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 13876.79,
+              "contratos": [
+                {
+                  "contrato": "LED",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 13876.79
+                }
+              ]
+            },
             {
               "repId": 9958,
               "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
@@ -1297,21 +1312,6 @@
                   "meta": 0,
                   "metaAteOntem": 0,
                   "real": 12151.49
-                }
-              ]
-            },
-            {
-              "repId": 9894,
-              "nome": "J. F. REPRESENTACOES LTDA",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 13876.79,
-              "contratos": [
-                {
-                  "contrato": "LED",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 13876.79
                 }
               ]
             },
@@ -1440,50 +1440,6 @@
           ]
         },
         {
-          "uf": "RIO GRANDE DO NORTE",
-          "meta": 0,
-          "metaAteOntem": 0,
-          "real": 15333.31,
-          "representantes": [
-            {
-              "repId": 9958,
-              "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 11622.54,
-              "contratos": [
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 11622.54
-                }
-              ]
-            },
-            {
-              "repId": 9010,
-              "nome": "SOUZA & MOTTA REPRESENTACOES LTDA",
-              "meta": 0,
-              "metaAteOntem": 0,
-              "real": 3710.77,
-              "contratos": [
-                {
-                  "contrato": "PLÁSTICO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 2723.06
-                },
-                {
-                  "contrato": "ALUMÍNIO",
-                  "meta": 0,
-                  "metaAteOntem": 0,
-                  "real": 987.71
-                }
-              ]
-            }
-          ]
-        },
-        {
           "uf": "CEARA",
           "meta": 0,
           "metaAteOntem": 0,
@@ -1522,6 +1478,50 @@
                   "meta": 0,
                   "metaAteOntem": 0,
                   "real": 27172.6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uf": "RIO GRANDE DO NORTE",
+          "meta": 0,
+          "metaAteOntem": 0,
+          "real": 15333.31,
+          "representantes": [
+            {
+              "repId": 9958,
+              "nome": "KEYLA KAROLINE FERREIRA DE MORAIS",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 11622.54,
+              "contratos": [
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 11622.54
+                }
+              ]
+            },
+            {
+              "repId": 9010,
+              "nome": "SOUZA & MOTTA REPRESENTACOES LTDA",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 3710.77,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 2723.06
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 987.71
                 }
               ]
             }
@@ -1663,26 +1663,26 @@
           "uf": "AMAZONAS",
           "meta": 0,
           "metaAteOntem": 0,
-          "real": 15427.12,
+          "real": 61805.95,
           "representantes": [
             {
               "repId": 9580,
               "nome": "FX REPRESENTACOES DE MAT. ELETR. LTDA",
               "meta": 0,
               "metaAteOntem": 0,
-              "real": 15427.12,
+              "real": 61805.95,
               "contratos": [
                 {
                   "contrato": "PLÁSTICO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 614.97
+                  "real": 2763.34
                 },
                 {
                   "contrato": "ALUMÍNIO",
                   "meta": 0,
                   "metaAteOntem": 0,
-                  "real": 14812.15
+                  "real": 59042.61
                 }
               ]
             }
@@ -1735,6 +1735,35 @@
                   "meta": 0,
                   "metaAteOntem": 0,
                   "real": 6544.7
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uf": "RORAIMA",
+          "meta": 0,
+          "metaAteOntem": 0,
+          "real": 42658.7,
+          "representantes": [
+            {
+              "repId": 9580,
+              "nome": "FX REPRESENTACOES DE MAT. ELETR. LTDA",
+              "meta": 0,
+              "metaAteOntem": 0,
+              "real": 42658.7,
+              "contratos": [
+                {
+                  "contrato": "PLÁSTICO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 22208.12
+                },
+                {
+                  "contrato": "ALUMÍNIO",
+                  "meta": 0,
+                  "metaAteOntem": 0,
+                  "real": 20450.58
                 }
               ]
             }
